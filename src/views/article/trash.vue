@@ -3,44 +3,13 @@
         <el-row type="flex" justify="space-between">
             <div>
                 <el-button type="info" icon="el-icon-refresh" @click="getData()"></el-button>
-                <el-button type="primary" icon="el-icon-circle-plus-outline"
-                           @click="$router.push('create')">新建
-                </el-button>
-                <el-button type="danger" icon="el-icon-delete" @click="del(rows)">删除</el-button>
-                <el-input v-model="query.searchData.title" placeholder="标题" class="w200p ml10p"></el-input>
-                <el-date-picker class="w300p ml10p"
-                                v-model="searchDate"
-                                type="daterange"
-                                align="right"
-                                format="yyyy-MM-dd"
-                                value-format="timestamp"
-                                range-separator="至"
-                                start-placeholder="开始日期"
-                                end-placeholder="结束日期"
-                                :picker-options="pickerOptions">
-                </el-date-picker>
-                <el-button type="primary" icon="el-icon-search" class="ml10p" @click="search()">搜索</el-button>
-                <el-button type="primary" icon="el-icon-refresh"
-                           @click="reset()">重置
-                </el-button>
-            </div>
-            <div>
-                <!--                <el-select v-model="value4" clearable placeholder="请选择" style="margin-left: 10px;">-->
-                <!--                    <el-option-->
-                <!--                            v-for="item in options"-->
-                <!--                            :key="item.value"-->
-                <!--                            :label="item.label"-->
-                <!--                            :value="item.value">-->
-                <!--                    </el-option>-->
-                <!--                </el-select>-->
             </div>
         </el-row>
         <el-row class="mb0p">
             <el-table :data="tableData.rows" border stripe>
-                <el-table-column type="selection"></el-table-column>
-                <el-table-column prop="title" label="标题" sortable></el-table-column>
-                <el-table-column prop="summary" label="摘要" sortable></el-table-column>
-                <el-table-column prop="status" label="状态" sortable>
+                <el-table-column prop="title" label="标题"  ></el-table-column>
+                <el-table-column prop="summary" label="摘要"  ></el-table-column>
+                <el-table-column prop="status" label="状态"  >
                     <template v-slot="scope">
                         {{scope.row.status|status}}
                     </template>
@@ -53,7 +22,6 @@
                 <el-table-column prop="" label="操作" fixed="right" width="300">
                     <template v-slot="scope">
                         <el-button @click="look(scope.row)" type="primary" size="small">查看</el-button>
-                        <el-button type="warning" size="small" @click="edit(scope.row)">编辑</el-button>
                         <el-button type="warning" size="small" @click="restore(scope.row)">恢复</el-button>
                         <el-button type="danger" size="small" @click="del(scope.row)">删除</el-button>
                     </template>

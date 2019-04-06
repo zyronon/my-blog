@@ -8,24 +8,31 @@
         <el-card class="box-card">
             <div slot="header" class="clearfix">
                 <span>添加文章</span>
-                <el-button style="float: right; padding: 3px 0" type="text">提交</el-button>
+                <el-button style="float: right; padding: 3px 0" type="text" @click="submit()">提交</el-button>
             </div>
             <el-form ref="form" :model="form" label-width="120px" label-position="left">
                 <el-form-item label="标题:">
                     <el-input v-model="form.title"></el-input>
                 </el-form-item>
-                <el-row>
-                    <el-col :span="6">
+                <el-row :gutter="40">
+                    <el-col :span="8">
                         <el-form-item label="作者:">
                             <el-input v-model="form.author"></el-input>
                         </el-form-item>
                     </el-col>
-                    <el-col :span="6" :offset="2">
+                    <el-col :span="8" >
                         <el-form-item label="分类:">
-                            <el-input v-model="form.categoryId"></el-input>
+                            <el-select class="w100" v-model="form.categoryId" placeholder="请选择">
+                                <el-option
+                                        v-for="item in categories"
+                                        :key="item.id"
+                                        :label="item.name"
+                                        :value="item.id">
+                                </el-option>
+                            </el-select>
                         </el-form-item>
                     </el-col>
-                    <el-col :span="6" :offset="2">
+                    <el-col :span="8"  >
                         <el-form-item label="标签:">
                             <el-input v-model="form.tagId"></el-input>
                         </el-form-item>
@@ -71,6 +78,7 @@
 <script>
     import E from 'wangeditor'
     import Article from '@/api/article'
+    import Category from '@/api/category'
 
     export default {
         name: "CreateArticle",
@@ -78,13 +86,25 @@
             return {
                 form: {},
                 editor: null,
+                categories:[]
             }
         },
         mounted() {
             this.editor = new E(this.$refs.editor)
             this.editor.create()
         },
+        created(){
+            this.getCategory()
+        },
         methods: {
+            async getCategory() {
+                let res = await Category.index({}, {})
+                if (res.status === 1) {
+                    this.categories = res.data.list
+                } else {
+                    this.$error(res.msg)
+                }
+            },
             async submit() {
                 if (this.form.status) {
                     this.form.status = 2
