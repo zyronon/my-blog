@@ -113,6 +113,7 @@
                 }
                 if (this.editor.txt.text() === '') return this.$warning('内容不能为空')
                 this.form.content = this.editor.txt.html()
+                this.form.summary =  this.editor.txt.text().substr(0,150)+'...'
                 console.log(this.form)
                 let res = await Article.create(this.form)
                 if (res.status === 1) {

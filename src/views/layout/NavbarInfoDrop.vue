@@ -1,9 +1,9 @@
 <template>
     <div class="info-area">
         <el-dropdown trigger="click" @command="dropdownComm" class="info-area__dropdown">
-      <span class="el-dropdown-link">
-        {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
-      </span>
+              <span class="el-dropdown-link">
+                {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
+              </span>
             <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item command="profile">个人中心</el-dropdown-item>
                 <el-dropdown-item command="lock">锁定</el-dropdown-item>
@@ -29,27 +29,17 @@
             dropdownComm(command) {
                 switch (command) {
                     case 'logout':
-                        this.logouthandle()
+                        this.$store.commit('logout')
+                        window.location.reload()
                         break
                     case 'lock':
-                        this.lockhandle()
                         break
                     case 'profile':
                         this.jumpToProfile()
                         break
                 }
             },
-            async logouthandle() {
-                await this.$store.dispatch('logout')
-                window.location.reload()
-            },
-            lockhandle() {
-                this.$store.dispatch('setLockState', 'lock')
-                this.$router.push({
-                    path: '/lock'
-                })
-                this.$message.success(this.$t('lock.locked'))
-            },
+
             jumpToProfile() {
                 this.$router.push({
                     path: '/profile/index'

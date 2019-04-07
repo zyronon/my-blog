@@ -20,7 +20,7 @@
                     </div>
 
                     <div class="login-form">
-                        <el-form   ref="ruleForm">
+                        <el-form ref="ruleForm">
                             <el-form-item prop="username">
                                 <el-input v-model="loginForm.username"></el-input>
                             </el-form-item>
@@ -31,9 +31,7 @@
                                 <verify v-on:verifySuccess="verifySuccess=true"/>
                             </el-form-item>
                             <el-form-item class="btn">
-                                <el-button :loading="loading" :disabled="!verifySuccess" type="primary" @click="login()">
-                                    登录
-                                </el-button>
+                                <el-button :loading="loading" :disabled="!verifySuccess" type="primary" @click="login()">登录</el-button>
                             </el-form-item>
                         </el-form>
                     </div>
@@ -55,7 +53,7 @@
                         </a>
                     </div>
                     <div class="forget-form">
-                        <el-form  ref="forgetRuleForm">
+                        <el-form ref="forgetRuleForm">
                             <el-form-item>
                                 <el-input v-model="forgetForm.email"></el-input>
                             </el-form-item>
@@ -96,6 +94,8 @@
 
 <script>
     import verify from '@/components/verify'
+    import User from '@/api/user'
+    import md5 from '@/utils/md5'
 
     export default {
         name: 'login',
@@ -144,10 +144,20 @@
                     this.$refs['ruleForm'].resetFields()
                 }, 300)
             },
-            login() {
+            async login() {
                 this.loading = true
-                this.$store.commit('setToken','adfasddfdsfadfads')
-                this.$router.push({path: '/'})
+                let res = await User.login({username: this.loginForm.username, password: md5.hex_md5(this.loginForm.password)})
+                if (res.status === 1) {
+                    this.$success(res.msg)
+                    this.$store.commit('setToken', res.data.token)
+                    this.$store.commit('setUserInfo', res.data.user)
+                    this.$router.push({path: '/'})
+                } else {
+                    this.$error(res.msg)
+                }
+                setTimeout(() => {
+                    this.loading = false
+                }, this.$CONSTANT.DELAYTIME)
             },
             forgetHandle() {
                 this.$message.success('忘记密码')

@@ -13,12 +13,9 @@ const instance = axios.create({
 // request 拦截器
 instance.interceptors.request.use(
     config => {
-        // if (Cookies.get('token')) {
-        //     config.headers['access_token'] = Cookies.get('token')
-        //     if (config.method === 'post') {
-        //         config.headers['access_token'] = Cookies.get('token')
-        //     }
-        // }
+        if (store.state.token) {
+            config.headers['Authorization'] = store.state.token
+        }
         return config
     },
     error => {
