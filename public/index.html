@@ -1,17 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>vue-layout</title>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but vue-layout doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+    <script>
+        //检测浏览器，如果是ie，直接不让用
+        var url = window.location.href
+        if (url.indexOf('ignore') == -1) {
+            // var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+            // var isOpera = userAgent.indexOf('Opera') > -1; //判断是否Opera浏览器
+            // var isIE = userAgent.indexOf('compatible') > -1
+            //     && userAgent.indexOf('MSIE') > -1 && !isOpera; //判断是否IE浏览器
+            // var isEdge = userAgent.indexOf('Edge') > -1; //判断是否IE的Edge浏览器
+            // var isFF = userAgent.indexOf('Firefox') > -1; //判断是否Firefox浏览器
+            // var isSafari = userAgent.indexOf('Safari') > -1; //判断是否Safari浏览器
+            // var isChrome = userAgent.indexOf('Chrome') > -1; //判断Chrome浏览器
+            if (!!window.ActiveXObject || "ActiveXObject" in window) {
+                window.onload = function () {
+                    var container = document.createElement('div')
+                    container.className = 'check-version-container'
+                    var temp = ''
+                    temp += '<p>你知道您的<b>Internet Explorer 已经过时了</b>吗？</p>'
+                    temp += '<p>为了得到我们网站最好的体验效果，我们建议您升级到最新版本的Internet Explorer或选择另一个web浏览器，最流行的web浏览器在下面可以找到.</p>'
+                    temp += '<a class="check-version-next" href="/?ver=ignore"> 继续访问</a>'
+                    // temp += '<a class="check-version-next" href="request://localhost:4200/ignore"> 继续访问</a>';;
+                    temp += '<ul class="check-version-container-browser">'
+                    temp += '	<li class="check-version-browser">'
+                    temp += '		<img src="https://p4.ssl.qhimg.com/t01ce2c8d4d5d4f608a.png">'
+                    temp += '		<span>360安全浏览器(<span style="color: red;display: inline-block;margin: 0;">推荐</span>)</span>'
+                    temp += '		<a href="https://browser.360.cn/se/"  target="_blank">官网下载</a>'
+                    temp += '	</li>'
+                    temp += '	<li class="check-version-browser">'
+                    temp += '		<img src="https://p1.ssl.qhimg.com/t015df97f5323a948be.png">'
+                    temp += '		<span>360极速浏览器</span>'
+                    temp += '		<a href="https://browser.360.cn/ee/"  target="_blank">官网下载</a>'
+                    temp += '	</li>'
+                    temp += '	<li class="check-version-browser">'
+                    temp += '		<img src="request://3gimg.qq.com/trom_s/pcbrowser/download_logo.png">'
+                    temp += '		<span>QQ浏览器</span>'
+                    temp += '		<a href="https://browser.qq.com/" target="_blank">官网下载</a>'
+                    temp += '	</li>'
+                    temp += '	<li class="check-version-browser">'
+                    temp += '		<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538118312068&di=78de0fcf7dc615eb46d88693a8f88448&imgtype=0&src=request%3A%2F%2Fhimg2.huanqiu.com%2Fattachment2010%2F2014%2F0917%2F20140917084118310.png">'
+                    temp += '		<span>谷歌浏览器</span>'
+                    temp += '		<a href="https://www.google.cn/chrome/"  target="_blank">官网下载</a>'
+                    temp += '	</li>'
+                    temp += '</ul>'
+                    container.innerHTML = temp
+                    document.body.innerHTML = ""
+                    document.body.style.background = 'gainsboro'
+                    document.body.appendChild(container)
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<noscript>
+    <strong>We're sorry but vue-layout doesn't work properly without JavaScript enabled. Please enable it to
+        continue.</strong>
+</noscript>
+<div id="app"></div>
+<!-- built files will be auto injected -->
+</body>
 </html>
