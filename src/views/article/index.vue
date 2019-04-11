@@ -58,6 +58,7 @@
                 <el-table :data="tableData.rows" border stripe>
                     <el-table-column prop="title" label="标题" min-width="200 "></el-table-column>
                     <el-table-column prop="summary" label="摘要" min-width="350"></el-table-column>
+                    <el-table-column prop="clickCount" label="点击数" ></el-table-column>
                     <el-table-column prop="categoryName" label="分类">
                         <template v-slot="scope">
                             {{scope.row.category.name}}

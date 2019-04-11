@@ -14,7 +14,7 @@ const instance = axios.create({
 instance.interceptors.request.use(
     config => {
         if (store.state.token) {
-            config.headers['Authorization'] = store.state.token
+            config.headers['access-token'] = store.state.token
         }
         return config
     },
