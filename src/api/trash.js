@@ -9,6 +9,9 @@ export default {
     restore(data, params) {
         return http('trash/restore', data, params, CONSTANT.GET)
     },
+    restoreMore(data, params) {
+        return http('trash/restoreMore', data, params, CONSTANT.POST)
+    },
     del(data, params) {
         return http('trash/del', data, params, CONSTANT.GET)
     },

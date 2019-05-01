@@ -22,12 +22,12 @@
                     <div class="login-form">
                         <el-form ref="ruleForm">
                             <el-form-item prop="username">
-                                <el-input v-model="loginForm.username" @keydown.native="login()"></el-input>
+                                <el-input v-model="loginForm.username" @keyup.enter.native="login()"></el-input>
                             </el-form-item>
                             <el-form-item prop="password">
-                                <el-input type="password" v-model="loginForm.password"  @keydown.native="login()"></el-input>
+                                <el-input type="password" v-model="loginForm.password" @keyup.enter.native="login()"></el-input>
                             </el-form-item>
-                            <el-form-item prop="password">
+                            <el-form-item prop="code">
                                 <verify v-on:verifySuccess="verifySuccess=true"/>
                             </el-form-item>
                             <el-form-item class="btn">

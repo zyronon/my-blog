@@ -3,10 +3,12 @@
         <el-row type="flex" justify="space-between">
             <div>
                 <el-button type="info" icon="el-icon-refresh" @click="getData()"></el-button>
+                <el-button type="danger" icon="el-icon-delete" @click="restoreArticles()" :disabled="restoreRows.length===0">恢复</el-button>
             </div>
         </el-row>
         <el-row class="mb0p">
-            <el-table :data="tableData.rows" border stripe>
+            <el-table :data="tableData.rows" border stripe @selection-change="handleSelectionChange">
+                <el-table-column type="selection" align="center" width="50"></el-table-column>
                 <el-table-column prop="title" label="标题"  ></el-table-column>
                 <el-table-column prop="summary" label="摘要"  ></el-table-column>
                 <el-table-column prop="status" label="状态"  >
@@ -61,6 +63,7 @@
                     count: 0,
                     rows: []
                 },
+                restoreRows:[],
                 pickerOptions: this.$CONSTANT.PICKEROPTIONS
             }
         },
@@ -76,6 +79,18 @@
             }
         },
         methods: {
+            handleSelectionChange(val) {
+                this.restoreRows = val;
+            },
+            async restoreArticles(){
+                let res = await Trash.restoreMore(this.restoreRows , {})
+                if (res.status === 1) {
+                    this.$success(res.msg)
+                    this.getData()
+                } else {
+                    this.$error(res.msg)
+                }
+            },
             //历史查询条件、页码
             historyQuery(start = true) {
                 if (start) {

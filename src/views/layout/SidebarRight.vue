@@ -2,11 +2,11 @@
     <el-scrollbar wrapClass="scrollbar-wrapper">
         <transition-group name="list" tag="div">
             <div class="message list-item" v-for="(item,index) in messages" :key="item.id">
-                <i class="el-notification__icon el-icon-info"></i>
+                <i class="el-notification__icon el-icon-success" style="color: #67c23a;"></i>
                 <div class="el-notification__group">
-                    <h2 class="el-notification__title">提示{{item.id}}</h2>
-                    <div class="el-notification__content">这是一条不会自这是一条不会自动关闭的消息这是一条不会自动关闭的消息动关闭的消息</div>
-                    <div class="el-notification__closeBtn el-icon-close" @click="remove(index)"></div>
+                    <h2 class="el-notification__title">{{item.title}}</h2>
+                    <div class="el-notification__content">{{item.content}}</div>
+                    <div class="el-notification__closeBtn el-icon-close" @click="remove(item.id)"></div>
                 </div>
             </div>
         </transition-group>
@@ -16,29 +16,35 @@
 
 <script>
 
-    // import _ from 'lodash'
+    import User from "../../api/user"
 
     export default {
         name: 'SidebarRight',
-        data() {
-            return {
-                messages: [],
-                items: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-                nextNum: 10
+        created() {
+            this.getMessages()
+        },
+        computed: {
+            messages() {
+                return this.$store.state.messages
             }
         },
         methods: {
-            remove(index) {
-                console.log(index)
-                this.messages.splice(index, 1)
-
+            async getMessages() {
+                let result = await User.messages({}, {})
+                if (result.status === 1) {
+                    this.$store.dispatch('addMessages',result.data)
+                }
+            },
+            async remove(id) {
+                let result = await User.delMsg({}, {id})
+                if (result.status === 1) {
+                    this.getMessages()
+                }
             },
         },
         components: {},
         mounted() {
-            for (let i = 0; i < 20; i++) {
-                this.messages.push({id: i})
-            }
+
         }
     }
 </script>

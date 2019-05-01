@@ -1,42 +1,7 @@
 <template>
     <div class="all-list" v-loading="loading">
-        <el-row type="flex" justify="space-between">
-            <div>
-                <el-button type="info" icon="el-icon-refresh" @click="getData()"></el-button>
-                <el-button type="primary" icon="el-icon-circle-plus-outline"
-                           @click="$router.push('create')">新建
-                </el-button>
-                <el-button type="danger" icon="el-icon-delete" @click="del(rows)">删除</el-button>
-                <el-input v-model="query.searchData.title" placeholder="标题" class="w200p ml10p"></el-input>
-                <el-date-picker class="w300p ml10p"
-                                v-model="searchDate"
-                                type="daterange"
-                                align="right"
-                                format="yyyy-MM-dd"
-                                value-format="timestamp"
-                                range-separator="至"
-                                start-placeholder="开始日期"
-                                end-placeholder="结束日期"
-                                :picker-options="pickerOptions">
-                </el-date-picker>
-                <el-button type="primary" icon="el-icon-search" class="ml10p" @click="search()">搜索</el-button>
-                <el-button type="primary" icon="el-icon-refresh"
-                           @click="reset()">重置
-                </el-button>
-            </div>
-            <div>
-                <!--                <el-select v-model="value4" clearable placeholder="请选择" style="margin-left: 10px;">-->
-                <!--                    <el-option-->
-                <!--                            v-for="item in options"-->
-                <!--                            :key="item.value"-->
-                <!--                            :label="item.label"-->
-                <!--                            :value="item.value">-->
-                <!--                    </el-option>-->
-                <!--                </el-select>-->
-            </div>
-        </el-row>
         <el-row class="mb0p" :gutter="20">
-            <el-col :span="4">
+            <el-col :span="5">
                 <el-card>
                     <div slot="header" class="clearfix">
                         <span>分类</span>
@@ -45,62 +10,84 @@
                     </div>
                     <el-table :data="categorys.rows" border stripe @cell-click="chooseCate">
                         <el-table-column prop="name" label="名称"></el-table-column>
-                        <el-table-column prop=""  label="操作" fixed="right" >
+                        <el-table-column prop="" label="操作">
                             <template v-slot="scope">
-                                <el-button type="warning" size="small" @click="editCate(scope.row)">编辑</el-button>
-                                <el-button type="danger" size="small" @click="delCate(scope.row)">删除</el-button>
+                                <el-button type="warning" size="small" @click="editCate(scope.row,$event)">编辑</el-button>
+                                <el-button type="danger" size="small" @click="delCate(scope.row,$event)">删除</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
                 </el-card>
             </el-col>
-            <el-col :span="20">
-                <el-table :data="tableData.rows" border stripe>
-                    <el-table-column prop="title" label="标题" min-width="200 "></el-table-column>
-                    <el-table-column prop="summary" label="摘要" min-width="350"></el-table-column>
-                    <el-table-column prop="clickCount" label="点击数" ></el-table-column>
-                    <el-table-column prop="categoryName" label="分类">
-                        <template v-slot="scope">
-                            {{scope.row.category.name}}
-                        </template>
-                    </el-table-column>
-                    <el-table-column prop="status" label="状态">
-                        <template v-slot="scope">
-                            {{scope.row.status|status}}
-                        </template>
-                    </el-table-column>
-                    <el-table-column prop="createTime" label="创建时间" sortable>
-                        <template v-slot="scope">
-                            {{scope.row.createTime|date}}
-                        </template>
-                    </el-table-column>
-                    <el-table-column prop="createTime" label="创建时间" sortable>
-                        <template v-slot="scope">
-                            {{scope.row.updateTime|date}}
-                        </template>
-                    </el-table-column>
-                    <el-table-column prop="" label="操作" align="center"  fixed="right" width="250">
-                        <template v-slot="scope">
-                            <el-button @click="look(scope.row)" type="primary" size="small">查看</el-button>
-                            <el-button type="warning" size="small" @click="edit(scope.row)">编辑</el-button>
-                            <el-button type="danger" size="small" @click="del(scope.row)">删除</el-button>
-                        </template>
-                    </el-table-column>
-                </el-table>
+            <el-col :span="19">
+                <el-card>
+                    <el-button type="info" icon="el-icon-refresh" @click="getData()"></el-button>
+                    <el-button type="primary" icon="el-icon-circle-plus-outline" @click="$router.push('create')">新建</el-button>
+                    <el-button type="danger" icon="el-icon-delete" @click="delArticles()" :disabled="delRows.length===0">删除</el-button>
+                    <el-input v-model="query.searchData.title" placeholder="标题" class="w200p ml10p"></el-input>
+                    <el-date-picker class="w300p ml10p"
+                                    v-model="searchDate"
+                                    type="daterange"
+                                    align="right"
+                                    format="yyyy-MM-dd"
+                                    value-format="timestamp"
+                                    range-separator="至"
+                                    start-placeholder="开始日期"
+                                    end-placeholder="结束日期"
+                                    :picker-options="pickerOptions">
+                    </el-date-picker>
+                    <el-button type="primary" icon="el-icon-search" class="ml10p" @click="search()">搜索</el-button>
+                    <el-button type="primary" icon="el-icon-refresh" @click="reset()">重置</el-button>
+                </el-card>
+                <el-card class="mt20p">
+
+                    <el-table :data="tableData.rows" border stripe @selection-change="handleSelectionChange">
+                        <el-table-column type="selection" align="center" width="50"></el-table-column>
+                        <el-table-column prop="title" label="标题" min-width="200 "></el-table-column>
+                        <el-table-column prop="summary" label="摘要" min-width="350"></el-table-column>
+                        <el-table-column prop="clickCount" label="点击数" min-width="50"></el-table-column>
+                        <el-table-column prop="categoryName" label="分类">
+                            <template v-slot="scope">
+                                {{scope.row.category.name}}
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="status" label="状态">
+                            <template v-slot="scope">
+                                {{scope.row.status|status}}
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="createTime" label="创建时间" min-width="120" sortable>
+                            <template v-slot="scope">
+                                {{scope.row.createTime|date}}
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="createTime" label="更新时间" min-width="120" sortable>
+                            <template v-slot="scope">
+                                {{scope.row.updateTime|date}}
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="" label="操作" align="center" fixed="right" width="250">
+                            <template v-slot="scope">
+                                <el-button @click="look(scope.row)" type="primary" size="small">查看</el-button>
+                                <el-button type="warning" size="small" @click="edit(scope.row)">编辑</el-button>
+                                <el-button type="danger" size="small" @click="del(scope.row)">删除</el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </el-card>
+
+
+                <el-pagination class="pull-right mt20p" v-if="tableData.count !== 0"
+                               @size-change="handleSizeChange"
+                               @current-change="handleCurrentChange"
+                               :current-page="query.offset"
+                               :page-sizes="[10, 20, 30, 40]"
+                               :page-size="query.limit"
+                               layout="total, sizes, prev, pager, next, jumper"
+                               :total="tableData.count">
+                </el-pagination>
             </el-col>
         </el-row>
-        <el-row class="table-bottom mt10p" v-if="tableData.count !== 0">
-            <el-pagination class="pull-right"
-                           @size-change="handleSizeChange"
-                           @current-change="handleCurrentChange"
-                           :current-page="query.offset"
-                           :page-sizes="[10, 20, 30, 40]"
-                           :page-size="query.limit"
-                           layout="total, sizes, prev, pager, next, jumper"
-                           :total="tableData.count">
-            </el-pagination>
-        </el-row>
-
 
         <el-dialog title="添加分类" :visible.sync="dialogVisible" width="25%">
             <el-form ref="form" :model="form" label-width="120px" label-position="left">
@@ -142,6 +129,7 @@
                     count: 0,
                     rows: []
                 },
+                delRows: [],
                 pickerOptions: this.$CONSTANT.PICKEROPTIONS
             }
         },
@@ -158,6 +146,9 @@
             }
         },
         methods: {
+            handleSelectionChange(val) {
+                this.delRows = val
+            },
             //历史查询条件、页码
             historyQuery(start = true) {
                 if (start) {
@@ -173,6 +164,17 @@
             },
             edit(row) {
                 this.$router.push({path: 'edit', query: {id: row.id}})
+            },
+            delArticles() {
+                this.$mConfirm(null, '是否将这些数据   放入回收站?', async () => {
+                    let res = await Article.trashMore(this.delRows, {})
+                    if (res.status === 1) {
+                        this.$success(res.msg)
+                        this.getData()
+                    } else {
+                        this.$error(res.msg)
+                    }
+                })
             },
             del(row) {
                 this.$mConfirm(null, '是否要放入回收站?', async () => {
@@ -235,7 +237,7 @@
                 let res
                 if (this.form.id === undefined) {
                     res = await Category.create(this.form, {})
-                }else {
+                } else {
                     res = await Category.edit(this.form, {})
                 }
                 if (res.status === 1) {
@@ -246,11 +248,13 @@
                 }
                 this.dialogVisible = false
             },
-            editCate(row){
+            editCate(row, $event) {
+                $event.stopPropagation()
                 this.form = row
                 this.dialogVisible = true
             },
-            delCate(row){
+            delCate(row, $event) {
+                $event.stopPropagation()
                 this.$mConfirm(null, '是否删除这条数据?', async () => {
                     let res = await Category.del({}, {id: row.id})
                     if (res.status === 1) {
@@ -258,12 +262,12 @@
                         this.getCategory()
                     } else {
                         this.$error(res.msg)
+                        this.tableData.rows = res.data
                     }
                 })
             },
             //选中分类
-            chooseCate(row){
-                console.log(row)
+            chooseCate(row) {
                 this.query.searchData.categoryId = row.id
                 this.search()
             },

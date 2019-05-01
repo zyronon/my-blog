@@ -22,7 +22,6 @@ instance.interceptors.request.use(
         return Promise.reject(error)
     }
 )
-
 // respone 拦截器
 instance.interceptors.response.use(
     response => {
@@ -59,8 +58,8 @@ instance.interceptors.response.use(
                     })
                 } else {
                     return Promise.resolve({
-                        status:'009900',
-                        msg: data.message!==null?data.message:'',
+                        status: '009900',
+                        msg: data.message !== null ? data.message : '',
                         data: null
                     })
                 }
@@ -69,7 +68,6 @@ instance.interceptors.response.use(
         return Promise.resolve(data)
     },
     error => {
-        // console.log(error.response.data)
         if (error.response === undefined && error.status === undefined) {
             return Promise.resolve({
                 status: '009900',
@@ -84,11 +82,8 @@ instance.interceptors.response.use(
                 data: null
             })
         } else if (error.response.status === 401) {
-            return Promise.resolve({
-                status: '009900',
-                msg: '用户名或密码不正确',
-                data: null
-            })
+            store.commit('logout')
+            window.location.href = '/'
         } else {
             let data = error.response.data
             if (data.status !== undefined) {

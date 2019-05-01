@@ -9,9 +9,10 @@ const store = new Vuex.Store({
         userCanAccess: [],
         roles: [],
         // userInfo: Cookies.get('userInfo') === undefined ? null : JSON.parse(Cookies.get('userInfo')),
-        userInfo: {name:'test',avatar:'https://i.loli.net/2018/08/18/5b7819891bab1.jpg'},
+        userInfo: {name: 'test', avatar: 'https://i.loli.net/2018/08/18/5b7819891bab1.jpg'},
         token: Cookies.get('token') === undefined ? null : Cookies.get('token'),
-        historyQuery: new Map()
+        historyQuery: new Map(),
+        messages: []
     },
     mutations: {
         ADD_HISTORY_QUERY(state, {path, params}) {
@@ -37,6 +38,9 @@ const store = new Vuex.Store({
             state.token = token
             Cookies.set('token', token, {expires: 15})
         },
+        ADD_MESSAGE(state, messages) {
+            state.messages = messages
+        },
         logout(state) {
             Cookies.remove('token')
             Cookies.remove('userInfo')
@@ -47,7 +51,11 @@ const store = new Vuex.Store({
     actions: {
         addHistoryQuery({commit}, {path, params}) {
             commit('ADD_HISTORY_QUERY', {path, params})
-        }
+        },
+        addMessages({commit}, messages) {
+            commit('ADD_MESSAGE', messages)
+        },
+
     }
 })
 

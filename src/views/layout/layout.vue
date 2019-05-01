@@ -13,8 +13,8 @@
                     <breadcrumb/>
                 </div>
                 <div class="right-right">
-                    <infodrop class="mr20p"/>
-                    <el-badge is-dot class="notice-area">
+                    <infodrop class="mr20p "/>
+                    <el-badge  :hidden="messagesLength===0" :value="messagesLength" class="notice-area mr10p">
                         <div @click="switchRightbar">
                             <icon style="padding: 0;margin: 0;" name="notice" :scale="2.8"></icon>
                         </div>
@@ -125,6 +125,11 @@
             }
         },
         created() {
+        },
+        computed: {
+            messagesLength() {
+                return this.$store.state.messages.length
+            }
         },
         methods: {
             onlyOneShowingChildren(children) {

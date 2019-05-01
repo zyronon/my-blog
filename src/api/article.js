@@ -21,4 +21,7 @@ export default {
     trash(data, params) {
         return http('article/trash', data, params, CONSTANT.GET)
     },
+    trashMore(data, params) {
+        return http('article/trashMore', data, params, CONSTANT.POST)
+    },
 }
