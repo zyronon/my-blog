@@ -160,7 +160,8 @@
                 }
             },
             look(row) {
-                this.$router.push({path: 'edit', query: {id: row.id}})
+                window.open('http://www.ttentau.top/post.html?title='+row.title)
+                // this.$router.push({path: 'edit', query: {id: row.id}})
             },
             edit(row) {
                 this.$router.push({path: 'edit', query: {id: row.id}})

@@ -1,6 +1,6 @@
-import Vue from 'vue'
+// import Vue from 'vue'
 import App from './App.vue'
-import Element from 'element-ui'
+// import Element from 'element-ui'
 import '@/assets/scss/index.scss'
 import {router} from '@/route'
 import '@/route/routerControl'
@@ -12,9 +12,10 @@ import Icon from 'vue-svg-icon/Icon.vue'
 Vue.config.productionTip = false
 
 Vue.component('icon', Icon)
-// Vue.use(ELEMENT)
 
-Vue.use(Element, {size: 'medium'})
+Vue.use(ELEMENT)
+
+// Vue.use(Element, {size: 'medium'})
 
 //将filter里面的方法添加了vue的筛选器上
 Object.keys(filters).forEach(key => {

@@ -4,7 +4,7 @@
 width
 
 */
-$width: 1000;
+$width: 500;
 @while $width >= 0 {
     .w#{$width}p {
         width: #{$width}px !important;
@@ -26,7 +26,7 @@ $width: 100;
 $height
 
 */
-$height: 1000;
+$height: 500;
 @while $height >= 0 {
     .h#{$height}p {
         height: #{$height}px !important;
@@ -148,7 +148,7 @@ font
 
 */
 
-$font: 50;
+$font: 40;
 @while $font >=10 {
     .f#{$font} {
         font-size: #{$font}px!important;

@@ -16,15 +16,15 @@ module.exports = {
     outputDir: process.env.outputDir,
     assetsDir: './',
     lintOnSave: false,//取消eslint的检查
-    // configureWebpack: config => {
-    //     config.externals = {
-    //         "vue": "Vue",
-    //         "vuex": "Vuex",
-    //         "vue-router": "VueRouter",
-    //         "element-ui": "ELEMENT",
-    //         "axios": "axios"
-    //     }
-    // },
+    configureWebpack: config => {
+        config.externals = {
+            "vue": "Vue",
+            "vuex": "Vuex",
+            "vue-router": "VueRouter",
+            "element-ui": "ELEMENT",
+            "axios": "axios"
+        }
+    },
     // 选项...
     chainWebpack: config => {
         config.resolve.alias

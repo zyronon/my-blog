@@ -1,4 +1,4 @@
-import {Message, MessageBox} from 'element-ui'
+// import {Message, MessageBox} from 'element-ui'
 import {CONSTANT} from '@/utils/const_var'
 import Config from '@/config'
 
@@ -68,7 +68,7 @@ export default {
     },
 
     $mConfirm(type, msg, onConfirm) {
-        MessageBox.confirm(msg === null ? '确定删除这条数据？' : msg, '提示', {
+        ELEMENT.MessageBox.confirm(msg === null ? '确定删除这条数据？' : msg, '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             type: type === null ? 'warning' : type
@@ -83,12 +83,12 @@ export default {
     },
 
     $success(msg) {
-        Message({type: 'success', message: msg, duration: 1500, showClose: true})
+        ELEMENT.Message({type: 'success', message: msg, duration: 1500, showClose: true})
     },
     $warning(msg) {
-        Message({type: 'warning', message: msg, duration: 1500, showClose: true})
+        ELEMENT.Message({type: 'warning', message: msg, duration: 1500, showClose: true})
     },
     $error(msg) {
-        Message({type: 'error', message: msg, duration: 1500, showClose: true})
+        ELEMENT.Message({type: 'error', message: msg, duration: 1500, showClose: true})
     }
 }
