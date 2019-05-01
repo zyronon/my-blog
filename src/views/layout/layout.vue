@@ -122,6 +122,7 @@
                 sideMenu: this.$store.state.roles,
                 isCollapse: false,
                 isRightCollapse: true,
+                test:'增加一点修改，用以git提交'
             }
         },
         created() {
