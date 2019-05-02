@@ -1,5 +1,6 @@
 <template>
     <el-scrollbar wrapClass="scrollbar-wrapper">
+        <el-button type="primary" class="w100  mt10p " @click="delAll()" v-if="messages.length">清空</el-button>
         <transition-group name="list" tag="div">
             <div class="message list-item" v-for="(item,index) in messages" :key="item.id">
                 <i class="el-notification__icon el-icon-success" style="color: #67c23a;"></i>
@@ -10,7 +11,6 @@
                 </div>
             </div>
         </transition-group>
-
     </el-scrollbar>
 </template>
 
@@ -22,6 +22,7 @@
         name: 'SidebarRight',
         created() {
             this.getMessages()
+            this.initWebSocket()
         },
         computed: {
             messages() {
@@ -29,10 +30,19 @@
             }
         },
         methods: {
+            initWebSocket() {
+                let ws = new WebSocket( process.env.NODE_ENV === 'production'?this.$config.PRODUCT_WS_URL:this.$config.WS_URL)
+                ws.onopen = function () {
+                    ws.send('init')
+                }
+                ws.onmessage = (e) => {
+                    this.getMessages()
+                }
+            },
             async getMessages() {
                 let result = await User.messages({}, {})
                 if (result.status === 1) {
-                    this.$store.dispatch('addMessages',result.data)
+                    this.$store.dispatch('addMessages', result.data)
                 }
             },
             async remove(id) {
@@ -41,6 +51,12 @@
                     this.getMessages()
                 }
             },
+            async delAll() {
+                let result = await User.delAll({}, {})
+                if (result.status === 1) {
+                    this.getMessages()
+                }
+            }
         },
         components: {},
         mounted() {

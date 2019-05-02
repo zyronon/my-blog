@@ -130,10 +130,12 @@
                     rows: []
                 },
                 delRows: [],
-                pickerOptions: this.$CONSTANT.PICKEROPTIONS
+                pickerOptions: this.$CONSTANT.PICKEROPTIONS,
+
             }
         },
         created() {
+
             this.getData()
             this.getCategory()
         },
@@ -160,7 +162,7 @@
                 }
             },
             look(row) {
-                window.open('http://www.ttentau.top/post.html?title='+row.title)
+                window.open('http://www.ttentau.top/post.html?title=' + row.title)
                 // this.$router.push({path: 'edit', query: {id: row.id}})
             },
             edit(row) {

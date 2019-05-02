@@ -20,7 +20,7 @@
                             <el-input v-model="form.author"></el-input>
                         </el-form-item>
                     </el-col>
-                    <el-col :span="8" >
+                    <el-col :span="8">
                         <el-form-item label="分类:">
                             <el-select class="w100" v-model="form.categoryId" placeholder="请选择">
                                 <el-option
@@ -32,7 +32,7 @@
                             </el-select>
                         </el-form-item>
                     </el-col>
-                    <el-col :span="8"  >
+                    <el-col :span="8">
                         <el-form-item label="标签:">
                             <el-input v-model="form.tagId"></el-input>
                         </el-form-item>
@@ -59,7 +59,7 @@
                 </el-row>
                 <el-row>
                     <el-col :span="24">
-                        <div ref="editor" style="text-align:left"></div>
+                        <mavon-editor ref="mEditor" codeStyle="atom-one-dark"  v-model="form.content" style="max-height: 900px;"/>
                     </el-col>
                 </el-row>
             </el-form>
@@ -76,7 +76,6 @@
 </template>
 
 <script>
-    import E from 'wangeditor'
     import Article from '@/api/article'
     import Category from '@/api/category'
 
@@ -86,14 +85,10 @@
             return {
                 form: {},
                 editor: null,
-                categories:[]
+                categories: []
             }
         },
-        mounted() {
-            this.editor = new E(this.$refs.editor)
-            this.editor.create()
-        },
-        created(){
+        created() {
             this.getCategory()
         },
         methods: {
@@ -111,14 +106,16 @@
                 } else {
                     this.form.status = 0
                 }
-                if (this.editor.txt.text() === '') return this.$warning('内容不能为空')
-                this.form.content = this.editor.txt.html()
-                this.form.summary =  this.editor.txt.text().substr(0,150)+'...'
+                if (this.form.content === '') return this.$warning('内容不能为空')
+                if (!this.form.summary) {
+                    this.form.summary = this.form.content.substr(0, 150) + '...'
+                }
+                this.form.html = this.$refs.mEditor.d_render
                 console.log(this.form)
                 let res = await Article.create(this.form)
                 if (res.status === 1) {
                     this.$success(res.msg)
-                }else {
+                } else {
                     this.$error(res.msg)
                 }
             },

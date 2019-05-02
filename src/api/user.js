@@ -11,5 +11,8 @@ export default {
     },
     delMsg(data, params) {
         return http('message/del', data || {}, params || {}, CONSTANT.GET)
+    },
+    delAll(data, params) {
+        return http('message/delAll', data || {}, params || {}, CONSTANT.GET)
     }
 }

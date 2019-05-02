@@ -1,6 +1,6 @@
 // import Vue from 'vue'
-import App from './App.vue'
 // import Element from 'element-ui'
+import App from './App.vue'
 import '@/assets/scss/index.scss'
 import {router} from '@/route'
 import '@/route/routerControl'
@@ -8,12 +8,14 @@ import store from '@/store'
 import filters from '@/utils/filters'
 import tools from '@/utils/tools'
 import Icon from 'vue-svg-icon/Icon.vue'
+import mavonEditor from 'mavon-editor'
 
 Vue.config.productionTip = false
 
 Vue.component('icon', Icon)
 
 Vue.use(ELEMENT)
+Vue.use(mavonEditor)
 
 // Vue.use(Element, {size: 'medium'})
 
