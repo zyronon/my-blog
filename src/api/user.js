@@ -14,5 +14,11 @@ export default {
     },
     delAll(data, params) {
         return http('message/delAll', data || {}, params || {}, CONSTANT.GET)
+    },
+    config(data, params) {
+        return http('user/config', data || {}, params || {}, CONSTANT.GET)
+    },
+    editConfig(data, params) {
+        return http('user/editConfig', data || {}, params || {}, CONSTANT.POST)
     }
 }

@@ -76,5 +76,24 @@ export const asyncRouterMap = [
                 }
             }
         ]
+    },{
+        path: '/setting',
+        name: 'setting',
+        component: Layout,
+        meta: {
+            title: '设置',
+            icon: 'comp',
+        },
+        children: [
+            {
+                path: 'index',
+                name: 'index',
+                component: _import('setting/index'),
+                meta: {
+                    title: '网站设置',
+                    icon: 'comp',
+                }
+            }
+        ]
     },
 ]

@@ -8,8 +8,7 @@ const store = new Vuex.Store({
     state: {
         userCanAccess: [],
         roles: [],
-        // userInfo: Cookies.get('userInfo') === undefined ? null : JSON.parse(Cookies.get('userInfo')),
-        userInfo: {name: 'test', avatar: 'https://i.loli.net/2018/08/18/5b7819891bab1.jpg'},
+        userInfo: Cookies.get('userInfo') === undefined ? null : JSON.parse(Cookies.get('userInfo')),
         token: Cookies.get('token') === undefined ? null : Cookies.get('token'),
         historyQuery: new Map(),
         messages: []

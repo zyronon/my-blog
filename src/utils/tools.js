@@ -5,6 +5,7 @@ import Config from '@/config'
 export default {
 
     $config: Config,
+    $api: process.env.NODE_ENV === 'production' ? Config.PRODUCT_API_URL : Config.API_URL,
     $CONSTANT: CONSTANT,
 
     $jsonParse(v) {
@@ -65,6 +66,27 @@ export default {
         for (const newElement in newJson) {
             oldJson[newElement] = newJson[newElement]
         }
+    },
+    $upload(data) {
+        return new Promise((async (resolve, reject) => {
+            let baseUrl = process.env.NODE_ENV === 'production' ? Config.PRODUCT_API_URL : Config.API_URL + Config.API_VERSION + 'file/upload'
+            let res = await axios.post(baseUrl, data, {
+                    headers: {'Content-Type': 'multipart/form-data'}
+                }
+            ).catch(err => {
+                reject({
+                    msg: '上传文件失败',
+                    err
+                })
+            })
+            if (res) {
+                if (res.status === 200) {
+                    resolve(res.data)
+                } else {
+                    reject(res.statusText)
+                }
+            }
+        }))
     },
 
     $mConfirm(type, msg, onConfirm) {
