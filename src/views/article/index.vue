@@ -9,8 +9,8 @@
                         </el-button>
                     </div>
                     <el-table :data="categorys.rows" border stripe @cell-click="chooseCate">
-                        <el-table-column prop="name" label="名称"></el-table-column>
-                        <el-table-column prop="" label="操作">
+                        <el-table-column prop="name" label="名称" min-width="70"></el-table-column>
+                        <el-table-column prop="" label="操作" min-width="130">
                             <template v-slot="scope">
                                 <el-button type="warning" size="small" @click="editCate(scope.row,$event)">编辑</el-button>
                                 <el-button type="danger" size="small" @click="delCate(scope.row,$event)">删除</el-button>
@@ -40,12 +40,11 @@
                     <el-button type="primary" icon="el-icon-refresh" @click="reset()">重置</el-button>
                 </el-card>
                 <el-card class="mt20p">
-
                     <el-table :data="tableData.rows" border stripe @selection-change="handleSelectionChange">
                         <el-table-column type="selection" align="center" width="50"></el-table-column>
                         <el-table-column prop="title" label="标题" min-width="200 "></el-table-column>
                         <el-table-column prop="summary" label="摘要" min-width="350"></el-table-column>
-                        <el-table-column prop="clickCount" label="点击数" min-width="50"></el-table-column>
+                        <el-table-column prop="clickCount" label="点击数" min-width="80"></el-table-column>
                         <el-table-column prop="categoryName" label="分类">
                             <template v-slot="scope">
                                 {{scope.row.category.name}}
@@ -56,17 +55,17 @@
                                 {{scope.row.status|status}}
                             </template>
                         </el-table-column>
-                        <el-table-column prop="createTime" label="创建时间" min-width="120" sortable>
+                        <el-table-column prop="createTime" label="创建时间" min-width="150" sortable>
                             <template v-slot="scope">
                                 {{scope.row.createTime|date}}
                             </template>
                         </el-table-column>
-                        <el-table-column prop="createTime" label="更新时间" min-width="120" sortable>
+                        <el-table-column prop="createTime" label="更新时间" min-width="150" sortable>
                             <template v-slot="scope">
                                 {{scope.row.updateTime|date}}
                             </template>
                         </el-table-column>
-                        <el-table-column prop="" label="操作" align="center" fixed="right" width="250">
+                        <el-table-column prop="" label="操作" align="center" fixed="right" width="220">
                             <template v-slot="scope">
                                 <el-button @click="look(scope.row)" type="primary" size="small">查看</el-button>
                                 <el-button type="warning" size="small" @click="edit(scope.row)">编辑</el-button>
