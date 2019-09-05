@@ -6,6 +6,7 @@ module.exports = {
     entry: {
         index: './src/pages/index/index.js',
         project: './src/pages/project/project.js',
+        article: './src/pages/article/article.js',
     },
     plugins: [
         new CleanWebpackPlugin(),//清除dist目录多余文件
@@ -22,6 +23,13 @@ module.exports = {
             filename: "project.html",
             template: './src/pages/project/project.html',
             chunks: ['project'],
+            minify: true
+        }),
+        new HtmlWebpackPlugin({
+            title: 'article',
+            filename: "article.html",
+            template: './src/pages/article/article.html',
+            chunks: ['article'],
             minify: true
         }),
 
