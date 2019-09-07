@@ -1,7 +1,88 @@
 @import "../../assets/scss/index";
 
-.body-ctn {
-  $main-color: red;
+.container {
+  .about-me {
+    background: #ffffff;
+    position: relative;
+
+    .col {
+      position: relative;
+      z-index: 9;
+      width: 50%;
+      margin-left: 8%;
+      padding: 30px;
+
+      h1 {
+        padding: 50px 0;
+        font-size: 3.5rem;
+        font-weight: bold;
+      }
+
+      .description {
+        font-size: 1.8rem;
+        line-height: 2.8rem;
+        opacity: .7;
+      }
+
+      h2 {
+        padding: 50px 0;
+        font-size: 2.5rem;
+        font-weight: bold;
+      }
+
+      h3 {
+        padding: 50px 0;
+        font-size: 1.8rem;
+      }
+
+      .contact {
+        display: flex;
+
+        li {
+          cursor: pointer;
+          text-align: center;
+          margin-right: 30px;
+
+          i {
+            font-size: 3rem;
+            color: #6d819c;
+            transition: all .3s;
+
+            &:hover {
+              transform: scale(1.25);
+            }
+          }
+
+          .fa-weixin:hover {
+            color: #5aba59;
+          }
+
+          .fa-github:hover {
+            color: #000;
+          }
+
+          .fa-envelope:hover {
+            color: $hover-color;
+          }
+        }
+      }
+
+    }
+
+    .image {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+
+      img {
+        clip-path: polygon(100% 0, 100% 100%, 20% 100%, 100% 0);
+        height: 100%;
+        position: absolute;
+        right: 0;
+      }
+    }
+  }
 
   .img-ctn {
     height: 100%;
@@ -119,6 +200,13 @@
                 height: 100%;
                 position: absolute;
 
+                &.vue, &.ionic, &.html {
+                  a, .arrow, .title {
+                    color: black;
+                  }
+                }
+
+
                 .title {
                   font-style: italic;
 
@@ -135,6 +223,11 @@
                     //margin-left: 100px;
                     display: flex;
                     align-items: center;
+
+                    .vue {
+                      color: black;
+
+                    }
 
                     &:hover {
                       .arrow {
@@ -172,9 +265,8 @@
     }
   }
 
-
   section {
-    margin: 0 auto;
+    margin: 0 auto 50px auto;
     width: $container-width;
 
     .project-cnt {

@@ -7,6 +7,8 @@ module.exports = {
         index: './src/pages/index/index.js',
         project: './src/pages/project/project.js',
         article: './src/pages/article/article.js',
+        archive: './src/pages/archive/archive.js',
+        about: './src/pages/about/about.js',
     },
     plugins: [
         new CleanWebpackPlugin(),//清除dist目录多余文件
@@ -30,6 +32,20 @@ module.exports = {
             filename: "article.html",
             template: './src/pages/article/article.html',
             chunks: ['article'],
+            minify: true
+        }),
+        new HtmlWebpackPlugin({
+            title: 'archive',
+            filename: "archive.html",
+            template: './src/pages/archive/archive.html',
+            chunks: ['archive'],
+            minify: true
+        }),
+        new HtmlWebpackPlugin({
+            title: 'about',
+            filename: "about.html",
+            template: './src/pages/about/about.html',
+            chunks: ['about'],
             minify: true
         }),
 
