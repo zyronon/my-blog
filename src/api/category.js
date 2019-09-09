@@ -1,18 +1,23 @@
-import http from '../utils/http'
-import {CONSTANT} from '../utils/const_var'
+import CONSTANT from '../utils/const_var'
+import request from '../utils/http'
 
 export default {
-
-    index(data, params) {
-        return http('category/index', data, params, CONSTANT.GET)
+    select(data,params){
+        return request('category/select', data, params, CONSTANT.GET)
     },
-    create(data, params) {
-        return http('category/create', data, params, CONSTANT.POST)
+    create(data,params){
+        return request('category/create', data, params, CONSTANT.POST)
     },
-    edit(data, params) {
-        return http('category/edit', data, params, CONSTANT.POST)
+    edit(data,params){
+        return request('category/edit', data, params, CONSTANT.POST)
     },
-    del(data, params) {
-        return http('category/del', data, params, CONSTANT.GET)
+    detail(data,params){
+        return request('category/detail', data, params, CONSTANT.GET)
+    },
+    del(data,params){
+        return request('category/del', data, params, CONSTANT.GET)
+    },
+    delMore(data,params){
+        return request('category/delMore', data, params, CONSTANT.POST)
     },
 }

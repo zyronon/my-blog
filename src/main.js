@@ -1,34 +1,24 @@
-// import Vue from 'vue'
-// import Element from 'element-ui'
-import App from './App.vue'
-import '@/assets/scss/index.scss'
-import {router} from '@/route'
-import '@/route/routerControl'
-import store from '@/store'
-import filters from '@/utils/filters'
-import tools from '@/utils/tools'
-import Icon from 'vue-svg-icon/Icon.vue'
-import mavonEditor from 'mavon-editor'
+import Vue from 'vue'
+import Element from 'element-ui'
+import VCharts from 'v-charts'
+import Icon from 'vue-svg-icon/Icon'
+import App from './App'
+import './assets/scss/index.scss'
+import router from './router'
+import './router/routerControl'
+import store from './store'
+import mixin from './utils/mixin'
+import './mock'// 导入 mock 数据处理
+import api from './api'
 
 Vue.config.productionTip = false
+Vue.use(VCharts)
+Vue.use(Element, { size: 'medium' })
+Vue.component('icon', Icon);
+Vue.prototype.$bus = new Vue()
+Vue.prototype.$api = { ...api }
 
-Vue.component('icon', Icon)
-
-Vue.use(ELEMENT)
-Vue.use(mavonEditor)
-
-// Vue.use(Element, {size: 'medium'})
-
-//将filter里面的方法添加了vue的筛选器上
-Object.keys(filters).forEach(key => {
-    Vue.filter(key, filters[key])
-})
-
-//将tools里面的方法挂载到vue上,以方便用调用，直接this.$xxx方法名就可以了
-Object.keys(tools).forEach(key => {
-    Vue.prototype[key] = tools[key]
-})
-
+Vue.mixin(mixin)
 new Vue({
     store,
     router,

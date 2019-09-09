@@ -1,36 +1,5 @@
 <template>
     <div class="all-list" v-loading="loading">
-        <el-card :body-style="{ 'padding-top': '6px' }">
-            <div slot="header">文章列表</div>
-            <div class="d-flex flex-wrap-wrap">
-                <div>
-                    <label>文章名称</label>
-                    <el-input
-                            v-model="searchData.searchKey"
-                            placeholder="文章名称"
-                            class="mt14p ml10p mr20p w200p"
-                    ></el-input>
-                </div>
-                <div>
-                    <label>日期</label>
-                    <el-date-picker
-                            class="w300p mt14p ml10p mr20p"
-                            v-model="searchDate"
-                            type="daterange"
-                            size="medium"
-                            align="right"
-                            format="yyyy-MM-dd"
-                            value-format="timestamp"
-                            range-separator="至"
-                            start-placeholder="开始日期"
-                            end-placeholder="结束日期"
-                            :picker-options="CONSTANT.PICKEROPTIONS"
-                    ></el-date-picker>
-                </div>
-                <el-button type="primary" icon="el-icon-search" class="ml10p mt14p" @click="search()">搜索</el-button>
-                <el-button type="info" icon="el-icon-refresh" class="ml10p mt14p" @click="reset">重置</el-button>
-            </div>
-        </el-card>
         <el-card class="mt20p">
             <div class="d-flex justify-content-between align-items-center">
                 <span>共有{{tableData.count}}条数据</span>
@@ -42,32 +11,20 @@
                             @click="$router.push('create')"
                     >新建
                     </el-button>
-                    <el-button type="primary" icon="el-icon-delete" @click="del(rows)">删除</el-button>
+                    <el-button type="primary" :disabled="!multipleSelection.length" icon="el-icon-delete" @click="delMore()">删除</el-button>
                 </div>
             </div>
-            <el-table :data="tableData.list" border stripe class="mt20p">
+            <el-table :data="tableData.list" border stripe class="mt20p" @selection-change="handleSelectionChange">
                 <el-table-column type="selection"></el-table-column>
-                <el-table-column fixed prop="title" label="标题" min-width="100"></el-table-column>
-                <el-table-column prop="clickCount" label="点击量" min-width="100"></el-table-column>
+                <el-table-column prop="name" label="名称" min-width="100"></el-table-column>
+                <el-table-column prop="description" label=" 描述" min-width="100"></el-table-column>
                 <el-table-column prop="createTime" label="创建时间" min-width="100">
                     <template v-slot="scope">{{scope.row.createTime|dateDay}}</template>
                 </el-table-column>
-                <el-table-column prop="updateTime" label="更新时间" min-width="100">
-                    <template v-slot="scope">{{scope.row.updateTime|dateDay}}</template>
-                </el-table-column>
-                <el-table-column prop="sort" label="排序" min-width="100"></el-table-column>
-                <el-table-column prop="IsRent" label="是否可发车" min-width="100"></el-table-column>
                 <el-table-column prop label="操作" align="center" fixed="right" min-width="200">
                     <template v-slot="scope">
                         <el-button
-                                @click="$router.push({path:'detail',query:{id:'xxx'}})"
-                                icon="el-icon-reading"
-                                type="primary"
-                                size="small"
-                        >查看
-                        </el-button>
-                        <el-button
-                                @click="$router.push({path:'detail',query:{id:'xxx'}})"
+                                @click="$router.push({path:'create',query:{id:scope.row.id}})"
                                 type="primary"
                                 icon="el-icon-edit"
                                 size="small"
@@ -84,7 +41,6 @@
                         @size-change="handleSizeChange"
                         @current-change="handleCurrentChange"
                         :current-page="offset"
-                        :page-sizes="[10, 20, 30, 40]"
                         :page-size="limit"
                         layout="total, sizes, prev, pager, next, jumper"
                         :total="tableData.count"
@@ -99,24 +55,15 @@
         data() {
             return {
                 loading: false,
-                searchDate: [],
+                multipleSelection: [],
                 searchData: {},
                 tableData: {
                     list: [],
                     count: 0
                 },
-                offset: 0,
+                offset: 1,
                 limit: 10,
                 isSearch: false
-            }
-        },
-        watch: {
-            // 检测到这个值有变动，设置到searchData里面
-            searchDate(newValue) {
-                if (newValue && newValue.length > 0) {
-                    this.searchData.minCreateTime = newValue[0]
-                    this.searchData.maxCreateTime = newValue[1]
-                }
             }
         },
         created() {
@@ -126,8 +73,8 @@
             // 搜索
             search() {
                 this.isSearch = true
-                this.searchData.pageSize = this.limit = 10
-                this.searchData.pageNumber = this.offset = 0
+                this.searchData.limit = this.limit = 10
+                this.searchData.offset = this.offset = 1
                 this.getData()
             },
             // 重置
@@ -136,7 +83,7 @@
                 this.searchData = {}
                 this.searchDate = []
                 this.limit = 10
-                this.offset = 0
+                this.offset = 1
                 this.getData()
             },
             async getData() {
@@ -150,7 +97,7 @@
                     this.searchData.offset = this.offset
                     params = this.searchData
                 }
-                let res = await this.$api.article.select({}, params)
+                let res = await this.$api.category.select({}, params)
                 if (res.code === '000000') {
                     this.tableData.list = res.data.list
                     this.tableData.count  = res.data.count
@@ -170,13 +117,29 @@
                 this.offset = val
                 this.getData()
             },
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+            },
             del(row) {
-                // eslint-disable-line
-                this.$mConfirm('', '此操作将永久删除该文件, 是否继续?', () => {
-                    this.$message({
-                        type: 'success',
-                        message: '删除成功!'
-                    })
+                this.$mConfirm('', '此操作将永久删除该文件, 是否继续?',async () => {
+                    let res = await this.$api.category.del({},{id:row.id})
+                    if (res.code === '000000') {
+                        this.$success(res.msg)
+                        this.getData()
+                    }else{
+                        this.$error(res.msg)
+                    }
+                })
+            },
+            delMore(row) {
+                this.$mConfirm('', '此操作将永久删除该文件, 是否继续?',async () => {
+                    let res = await this.$api.category.delMore(this.multipleSelection);
+                    if (res.code === '000000') {
+                        this.$success(res.msg)
+                        this.getData()
+                    }else{
+                        this.$error(res.msg)
+                    }
                 })
             }
         }

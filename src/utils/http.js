@@ -1,9 +1,9 @@
-// import axios from 'axios'
-import store from '@/store'
-import tools from './tools'
+import axios from 'axios'
+import globalMethods from './global-methods'
 import Config from '../config/index'
-import {CONSTANT} from '../utils/const_var'
-
+import CONSTANT from './const_var'
+import store from '../store'
+import Storage from './storage'
 
 const instance = axios.create({
     baseURL: process.env.NODE_ENV === 'production' ? Config.PRODUCT_API_URL : Config.API_URL,
@@ -12,142 +12,120 @@ const instance = axios.create({
 
 // request 拦截器
 instance.interceptors.request.use(
-    config => {
-        if (store.state.token) {
-            config.headers['access-token'] = store.state.token
+    (config) => {
+        if (Storage.get('token')) {
+            config.headers['access_token'] = Storage.get('token')
         }
         return config
     },
-    error => {
-        return Promise.reject(error)
-    }
+    error => Promise.reject(error),
 )
+
 // respone 拦截器
 instance.interceptors.response.use(
-    response => {
+    // 响应正常的处理
+    (response) => {
         // console.log(response)
         // console.log(response.data)
-        const data = response.data
-        // console.log(response)
-        // console.log(data)
+        const { data } = response
         if (response.status !== 200) {
-            tools.notify({
-                type: 'error',
-                message: response.statusText
-            })
-            if (data.status === '000000') {
+            globalMethods.$warning(response.statusText)
+            if (data.code === '000000') {
                 // 接口自定义错误代码
                 // 移除登陆token 显示接口错误消息
             }
             return Promise.reject(data)
-        } else {
-            if (data === null) {
+        }
+        if (data === null) {
+            return Promise.resolve({
+                code: '009900',
+                msg: '系统出现错误',
+                data: {},
+            })
+        }
+        // console.log(data.resultCode)
+        if (data.code === undefined) {
+            if (data.msg !== undefined) {
                 return Promise.resolve({
-                    status: '009900',
-                    msg: '系统出现错误',
-                    data: null
+                    code: '009900',
+                    msg: data.msg,
+                    data: null,
                 })
             }
-            // console.log(data.resultCode)
-            if (data.status === undefined) {
-                if (data.msg !== undefined) {
-                    return Promise.resolve({
-                        status: '009900',
-                        msg: data.msg,
-                        data: null
-                    })
-                } else {
-                    return Promise.resolve({
-                        status: '009900',
-                        msg: data.message !== null ? data.message : '',
-                        data: null
-                    })
-                }
-            }
+            return Promise.resolve({
+                code: '009900',
+                msg: data.message !== null ? data.message : '',
+                data: null,
+            })
         }
         return Promise.resolve(data)
     },
-    error => {
+    // 请求出错的处理
+    (error) => {
+        console.log(error)
         if (error.response === undefined && error.status === undefined) {
             return Promise.resolve({
-                status: '009900',
+                code: '009900',
                 msg: '服务器响应超时',
-                data: null
+                data: null,
             })
         }
         if (error.response.status >= 500) {
             return Promise.resolve({
-                status: '009900',
+                code: '009900',
                 msg: '服务器出现错误',
-                data: null
-            })
-        } else if (error.response.status === 401) {
-            store.commit('logout')
-            window.location.href = '/'
-        } else {
-            let data = error.response.data
-            if (data.status !== undefined) {
-                return Promise.resolve({
-                    status: data.status,
-                    msg: data.msg
-                })
-            }
-            return Promise.resolve({
-                status: '009900',
-                msg: data.msg,
-                data: null
+                data: null,
             })
         }
-    }
+        if (error.response.status === 401) {
+            return Promise.resolve({
+                code: '009900',
+                msg: '用户名或密码不正确',
+                data: null,
+            })
+        }
+        const { data } = error.response
+        if (data.code !== undefined) {
+            return Promise.resolve({
+                code: data.code,
+                msg: data.msg,
+            })
+        }
+        return Promise.resolve({
+            code: '009900',
+            msg: data.msg,
+            data: null,
+        })
+    },
 )
 
-async function http(url, data = {}, params = {}, method = CONSTANT.POST, auth = false, version = Config.API_VERSION, headers = null) {
-    // if (params.noUserId === undefined || !params.noUserId) {
-    //     if (params.userId === undefined || params.userId === null) {
-    //         if (store.state.userInfo !== null) {
-    //             params.userId = store.state.userInfo.userId || ''
-    //         }
-    //     }
-    // }
-    // delete params.noUserId
-    if (auth) {
+
+/**
+ * @apiDescription 封装的网络请求方法
+ * @apiGroup
+ * @apiName request
+ * @apiParam  url 地址
+ * @apiParam  data 请求数据
+ * @apiParam  params 请求参数
+ * @apiParam  method 方法类型：get或者post
+ * @apiParam  version 接口版本号
+ * @apiParamExample
+ *       request('Appointment/appointmentList', data, params, CONSTANT.GET)
+ * @apiReturn Promise
+ */
+async function request(url, data = {}, params = {}, method = CONSTANT.POST, version = Config.API_VERSION) {
+    // console.log(url)
+    if (method === CONSTANT.POST) {
+        data.userId = store.state.user.userInfo === null ? '' : store.state.user.userInfo.id
     } else {
-        let result
-        if (method === CONSTANT.POST) {
-            result = await instance({
-                url: version + url,
-                method: method,
-                data: data,
-                params: params
-            })
-        } else if (method === CONSTANT.GET) {
-            result = await instance({
-                url: version + url,
-                method: method,
-                params: params
-            })
-        } else if (method === CONSTANT.PUT) {
-            result = await instance({
-                url: version + url,
-                method: method,
-                params: params,
-                data: data
-            })
-        } else if (method === CONSTANT.PATCH) {
-            result = await instance({
-                url: version + url,
-                method: method,
-                params: params
-            })
-        } else if (method === CONSTANT.DELETE) {
-            result = await instance({
-                url: version + url,
-                method: method,
-                params: params
-            })
-        }
-        return result
+        params.userId = store.state.user.userInfo === null ? '' : store.state.user.userInfo.id
     }
+    return instance({
+        url: version + url,
+        method,
+        data,
+        params,
+    })
 }
 
-export default http
+export default request

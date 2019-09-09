@@ -1,62 +1,32 @@
-// import Vue from 'vue'
-// import Vuex from 'vuex'
-import Cookies from 'js-cookie'
+import Vue from 'vue'
+import Vuex from 'vuex'
+import { types } from './mutation-types'
+import { layout } from './modules/layout'
+import { user } from './modules/user'
 
 Vue.use(Vuex)
-
 const store = new Vuex.Store({
+    modules: {
+        layout,
+        user,
+    },
     state: {
-        userCanAccess: [],
-        roles: [],
-        userInfo: Cookies.get('userInfo') === undefined ? null : JSON.parse(Cookies.get('userInfo')),
-        token: Cookies.get('token') === undefined ? null : Cookies.get('token'),
         historyQuery: new Map(),
-        messages: []
     },
     mutations: {
-        ADD_HISTORY_QUERY(state, {path, params}) {
+        [types.ADD_HISTORY_QUERY](state, { path, params }) {
             state.historyQuery.set(path, params)
         },
-        setUserCanAccess(state, userCanAccess) {
-            state.userCanAccess = userCanAccess
-        },
-        setRoles(state, roles) {
-            state.roles = roles
-        },
-        //设置用户信息
-        setUserInfo(state, userInfo) {
-            state.userInfo = userInfo
-            Cookies.set('userInfo', userInfo, {expires: 15})
-        },
-        //设置 配置文件
-        setConfig(state, config) {
+        // 设置 配置文件
+        [types.SET_CONFIG](state, config) {
             state.config = config
         },
-        //设置 token
-        setToken(state, token) {
-            state.token = token
-            Cookies.set('token', token, {expires: 15})
-        },
-        ADD_MESSAGE(state, messages) {
-            state.messages = messages
-        },
-        logout(state) {
-            Cookies.remove('token')
-            Cookies.remove('userInfo')
-            state.token = null
-            state.userInfo = null
-        }
     },
     actions: {
-        addHistoryQuery({commit}, {path, params}) {
-            commit('ADD_HISTORY_QUERY', {path, params})
+        addHistoryQuery({ commit }, { path, params }) {
+            commit(types.ADD_HISTORY_QUERY, { path, params })
         },
-        addMessages({commit}, messages) {
-            commit('ADD_MESSAGE', messages)
-        },
-
-    }
+    },
 })
 
 export default store
-

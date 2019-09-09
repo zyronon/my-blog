@@ -1,6 +1,8 @@
+/* eslint-disable */
 export default {
     hexcase: 0,
     chrsz: 8,
+    // 加密方法
     hex_md5(s) {
         return this.binl2hex(this.core_md5(this.str2binl(s), s.length * this.chrsz))
     },
@@ -8,18 +10,18 @@ export default {
         /* append padding */
         x[len >> 5] |= 0x80 << ((len) % 32)
         x[(((len + 64) >>> 9) << 4) + 14] = len
-
+        
         let a = 1732584193
         let b = -271733879
         let c = -1732584194
         let d = 271733878
-
+        
         for (let i = 0; i < x.length; i += 16) {
-            let olda = a
-            let oldb = b
-            let oldc = c
-            let oldd = d
-
+            const olda = a
+            const oldb = b
+            const oldc = c
+            const oldd = d
+            
             a = this.md5_ff(a, b, c, d, x[i + 0], 7, -680876936)
             d = this.md5_ff(d, a, b, c, x[i + 1], 12, -389564586)
             c = this.md5_ff(c, d, a, b, x[i + 2], 17, 606105819)
@@ -36,7 +38,7 @@ export default {
             d = this.md5_ff(d, a, b, c, x[i + 13], 12, -40341101)
             c = this.md5_ff(c, d, a, b, x[i + 14], 17, -1502002290)
             b = this.md5_ff(b, c, d, a, x[i + 15], 22, 1236535329)
-
+            
             a = this.md5_gg(a, b, c, d, x[i + 1], 5, -165796510)
             d = this.md5_gg(d, a, b, c, x[i + 6], 9, -1069501632)
             c = this.md5_gg(c, d, a, b, x[i + 11], 14, 643717713)
@@ -53,7 +55,7 @@ export default {
             d = this.md5_gg(d, a, b, c, x[i + 2], 9, -51403784)
             c = this.md5_gg(c, d, a, b, x[i + 7], 14, 1735328473)
             b = this.md5_gg(b, c, d, a, x[i + 12], 20, -1926607734)
-
+            
             a = this.md5_hh(a, b, c, d, x[i + 5], 4, -378558)
             d = this.md5_hh(d, a, b, c, x[i + 8], 11, -2022574463)
             c = this.md5_hh(c, d, a, b, x[i + 11], 16, 1839030562)
@@ -70,7 +72,7 @@ export default {
             d = this.md5_hh(d, a, b, c, x[i + 12], 11, -421815835)
             c = this.md5_hh(c, d, a, b, x[i + 15], 16, 530742520)
             b = this.md5_hh(b, c, d, a, x[i + 2], 23, -995338651)
-
+            
             a = this.md5_ii(a, b, c, d, x[i + 0], 6, -198630844)
             d = this.md5_ii(d, a, b, c, x[i + 7], 10, 1126891415)
             c = this.md5_ii(c, d, a, b, x[i + 14], 15, -1416354905)
@@ -87,7 +89,7 @@ export default {
             d = this.md5_ii(d, a, b, c, x[i + 11], 10, -1120210379)
             c = this.md5_ii(c, d, a, b, x[i + 2], 15, 718787259)
             b = this.md5_ii(b, c, d, a, x[i + 9], 21, -343485551)
-
+            
             a = this.safe_add(a, olda)
             b = this.safe_add(b, oldb)
             c = this.safe_add(c, oldc)
@@ -111,28 +113,29 @@ export default {
         return this.md5_cmn(c ^ (b | (~d)), a, b, x, s, t)
     },
     safe_add(x, y) {
-        let lsw = (x & 0xFFFF) + (y & 0xFFFF)
-        let msw = (x >> 16) + (y >> 16) + (lsw >> 16)
+        const lsw = (x & 0xFFFF) + (y & 0xFFFF)
+        const msw = (x >> 16) + (y >> 16) + (lsw >> 16)
         return (msw << 16) | (lsw & 0xFFFF)
     },
     bit_rol(num, cnt) {
         return (num << cnt) | (num >>> (32 - cnt))
     },
     str2binl(str) {
-        let bin = Array()
-        let mask = (1 << this.chrsz) - 1
-        for (let i = 0; i < str.length * this.chrsz; i += this.chrsz)
+        const bin = Array()
+        const mask = (1 << this.chrsz) - 1
+        for (let i = 0; i < str.length * this.chrsz; i += this.chrsz) {
             bin[i >> 5] |= (str.charCodeAt(i / this.chrsz) & mask) << (i % 32)
+        }
         return bin
     },
     binl2hex(binarray) {
-        let hex_tab = this.hexcase ? "0123456789ABCDEF" : "0123456789abcdef"
-        let str = ""
+        const hex_tab = this.hexcase ? '0123456789ABCDEF' : '0123456789abcdef'
+        let str = ''
         for (let i = 0; i < binarray.length * 4; i++) {
-            str += hex_tab.charAt((binarray[i >> 2] >> ((i % 4) * 8 + 4)) & 0xF) +
-                hex_tab.charAt((binarray[i >> 2] >> ((i % 4) * 8)) & 0xF)
+            str += hex_tab.charAt((binarray[i >> 2] >> ((i % 4) * 8 + 4)) & 0xF)
+                + hex_tab.charAt((binarray[i >> 2] >> ((i % 4) * 8)) & 0xF)
         }
         return str
     },
-
+    
 }

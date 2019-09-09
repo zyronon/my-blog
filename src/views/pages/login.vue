@@ -1,323 +1,431 @@
 <template>
-    <div class="login-page">
-        <el-tooltip class="svg-github" effect="dark" content="Fork Me" placement="bottom">
-            <a href="https://github.com/Sakuyakun/vue-eden">
-                <icon name="github" :scale="2.5"></icon>
-            </a>
-        </el-tooltip>
-
-        <div class="login-wrap">
-            <el-col :class="translateLeft" :span="10">
-
-                <div v-if="notforget">
-                    <div class="logo">
-                        <icon name="tree" :scale="6"></icon>
-                        <div class="title">
-                            <a>
-                                <span>TTent</span><span class="subtitle">au</span>
-                            </a>
+    <div class="login">
+        <div class="container">
+            <div class="w50 left">
+                <div v-show="leftType === 1" class="form-body">
+                    <div class="notice">
+                        <h1>登录</h1>
+                        <h5>输入用户名和密码</h5>
+                    </div>
+                    <el-form ref="loginForm"
+                             status-icon
+                             :rules="loginRules"
+                             :model="loginForm"
+                             label-width="0px">
+                        <el-form-item label="" prop="account">
+                            <el-input prefix-icon="el-icon-user" placeholder="请输入账号"
+                                      v-model="loginForm.account"></el-input>
+                        </el-form-item>
+                        <el-form-item label="" prop="password">
+                            <el-input prefix-icon="el-icon-key" placeholder="请输入密码"
+                                      v-model="loginForm.password" type="password"></el-input>
+                        </el-form-item>
+                        <el-form-item label="">
+                            <verify v-on:verifySuccess="verifySuccess=true"/>
+                        </el-form-item>
+                        <div class="oh mb10p">
+                            <el-link class="pull-right" @click="forgetPassword()">忘记密码？</el-link>
                         </div>
-                    </div>
-
-                    <div class="login-form">
-                        <el-form ref="ruleForm">
-                            <el-form-item prop="username">
-                                <el-input v-model="loginForm.username" @keyup.enter.native="login()"></el-input>
-                            </el-form-item>
-                            <el-form-item prop="password">
-                                <el-input type="password" v-model="loginForm.password" @keyup.enter.native="login()"></el-input>
-                            </el-form-item>
-                            <el-form-item prop="code">
-                                <verify v-on:verifySuccess="verifySuccess=true"/>
-                            </el-form-item>
-                            <el-form-item class="btn">
-                                <el-button :loading="loading" :disabled="!verifySuccess" type="primary" @click="login()">登录</el-button>
-                            </el-form-item>
-                        </el-form>
-                    </div>
-
-                    <div class="login-footer">
-                        <el-col :span="12">
-                            <el-checkbox v-model="remember" name="type">记住密码</el-checkbox>
-                        </el-col>
-                        <el-col class="forgetpwd" :span="12">
-                            <span @click="wrapSwitch(false)">忘记密码</span>
-                        </el-col>
-                    </div>
+                        <el-form-item class="btn mb0p">
+                            <div class="d-flex justify-content-between">
+                                <el-button type="primary" @click="goRegister()">注册</el-button>
+                                <el-button :loading="loading"
+                                           :disabled="!verifySuccess"
+                                           type="primary"
+                                           @click="login()">登录
+                                </el-button>
+                            </div>
+                        </el-form-item>
+                    </el-form>
                 </div>
-
-                <div v-else>
-                    <div class="title forgetwrap-title">
-                        <a>
-                            <span>TTent</span><span class="subtitle">au</span>
-                        </a>
+                <div v-show="leftType === 2" class="form-body">
+                    <div class="notice">
+                        <h1 class="mt0p">注册</h1>
                     </div>
-                    <div class="forget-form">
-                        <el-form ref="forgetRuleForm">
-                            <el-form-item>
-                                <el-input v-model="forgetForm.email"></el-input>
-                            </el-form-item>
-                            <el-form-item>
-                                <el-input v-model="forgetForm.code"></el-input>
-                            </el-form-item>
-                            <el-form-item>
-                                <el-input type="password" v-model="forgetForm.newPassword"></el-input>
-                            </el-form-item>
-                            <el-form-item>
-                                <el-input type="password" v-model="forgetForm.confirmPassword"></el-input>
-                            </el-form-item>
-                            <el-form-item class="btn">
-                                <el-row :gutter="20">
-                                    <el-col :span="12">
-                                        <el-button @click="wrapSwitch(true)" type="primary">
-                                            返回
-                                        </el-button>
-                                    </el-col>
-                                    <el-col :span="12">
-                                        <el-button @click="forgetHandle" type="primary">登录
-                                        </el-button>
-                                    </el-col>
-                                </el-row>
-                            </el-form-item>
-                        </el-form>
-                    </div>
+                    <el-form ref="registerForm"
+                             status-icon
+                             :rules="registerRules"
+                             :model="registerForm"
+                             label-width="0px">
+                        <el-form-item label="" prop="account">
+                            <el-input placeholder="请输入账号" v-model="registerForm.account">
+                                <template slot="prepend">
+                                    <span class="c-red">* </span>账号：
+                                </template>
+                            </el-input>
+                        </el-form-item>
+                        <el-form-item label="" prop="password">
+                            <el-input placeholder="请输入密码" v-model="registerForm.password">
+                                <template slot="prepend">
+                                    <span class="c-red">* </span>密码：
+                                </template>
+                            </el-input>
+                        </el-form-item>
+                        <el-form-item label="" prop="phone">
+                            <el-input placeholder="请输入手机号" v-model="registerForm.phone">
+                                <template slot="prepend">
+                                    <span class="c-red">* </span>手机号：
+                                </template>
+                            </el-input>
+                        </el-form-item>
+                        <el-form-item label="">
+                            <el-input placeholder="请输入姓名" v-model="registerForm.name">
+                                <template slot="prepend">姓名：
+                                </template>
+                            </el-input>
+                        </el-form-item>
+                        <el-form-item label="">
+                            <el-input placeholder="请输入昵称" v-model="registerForm.nickname">
+                                <template slot="prepend">昵称：
+                                </template>
+                            </el-input>
+                        </el-form-item>
+                        <el-form-item class="btn mb0p">
+                            <div class="d-flex justify-content-between">
+                                <el-button type="primary" @click="backLogin()">返回</el-button>
+                                <el-button :loading="loading" type="primary" @click="register()">
+                                    注册
+                                </el-button>
+                            </div>
+                        </el-form-item>
+                    </el-form>
                 </div>
+                <div v-show="leftType === 3" class="form-body">
+                    <div class="notice">
+                        <h1 class="mt0p">忘记密码</h1>
+                    </div>
+                    <el-form ref="forgetPasswordForm" status-icon
+                             :rules="forgetPasswordRules"
+                             :model="forgetPasswordForm"
+                             label-width="0px">
+                        <el-form-item label="" prop="account">
+                            <el-input placeholder="请输入账号" v-model="forgetPasswordForm.account">
+                                <template slot="prepend">
+                                    <span class="c-red">* </span>账号：
+                                </template>
+                            </el-input>
+                        </el-form-item>
+                        <el-form-item label="" prop="phone">
+                            <el-input placeholder="请输入手机号" v-model="forgetPasswordForm.phone">
+                                <template slot="prepend">
+                                    <span class="c-red">* </span>手机号：
+                                </template>
+                            </el-input>
+                        </el-form-item>
+                        <el-form-item label="">
+                            <el-input placeholder="请输入验证码" v-model="forgetPasswordForm.verifyCode">
+                                <el-button slot="append" @click="sendVerifyCode()">
+                                    {{isSendVerifyCode?countdownTime+'秒':'发送验证码'}}
+                                </el-button>
+                            </el-input>
+                        </el-form-item>
 
-            </el-col>
-
-            <el-col :class="translateRight" :span="14">
-                <div class="wallpaper"></div>
-            </el-col>
+                        <el-form-item class="btn mb0p">
+                            <div class="d-flex justify-content-between">
+                                <el-button type="primary" @click="backLogin()">返回</el-button>
+                                <el-button :loading="loading" type="primary" @click="forgetPasswordNext()">下一步
+                                </el-button>
+                            </div>
+                        </el-form-item>
+                    </el-form>
+                </div>
+                <div v-show="leftType === 4" class="form-body">
+                    <div class="notice">
+                        <h1 class="mt0p">修改密码</h1>
+                    </div>
+                    <el-form ref="changePasswordForm" status-icon
+                             :rules="changePasswordRules"
+                             :model="changePasswordForm"
+                             label-width="0px">
+                        <el-form-item label="" prop="password">
+                            <el-input placeholder="请输入新密码" type="password" v-model="changePasswordForm.password">
+                                <template slot="prepend">
+                                    <span class="c-red">* </span>新密码：
+                                </template>
+                            </el-input>
+                        </el-form-item>
+                        <el-form-item label="" prop="newPassword">
+                            <el-input placeholder="请重复密码" type="password" v-model="changePasswordForm.newPassword">
+                                <template slot="prepend">
+                                    <span class="c-red">* </span>重复密码：
+                                </template>
+                            </el-input>
+                        </el-form-item>
+                        <el-form-item class="btn mb0p">
+                            <div class="d-flex justify-content-between">
+                                <el-button type="primary" @click="backForgetPassword()">返回</el-button>
+                                <el-button :loading="loading" type="primary" @click="submitChangePassword()">确定
+                                </el-button>
+                            </div>
+                        </el-form-item>
+                    </el-form>
+                </div>
+            </div>
+            <div class="w50 right">
+                <div class="logo-body">
+                    <!-- <img src="" alt="" class="logo">-->
+                    <i class="el-icon-office-building f50"></i>
+                    <div class="name">{{CONFIG.COMPANY_NAME}}</div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-    import verify from '@/components/verify'
-    import User from '@/api/user'
-    import md5 from '@/utils/md5'
+    import verify from '../../components/verify'
+    import { types } from '../../store/mutation-types'
 
     export default {
-        name: 'login',
-        components: {verify},
-        data() {
-            return {
-                loginForm: {
-                    username: 'admin',
-                    password: ''
-                },
-                remember: true,
-                loading: false,
-                switchLeft: false,
-                switchRight: false,
-                notforget: true,
-                verifySuccess: false,
-                forgetForm: {
-                    email: '',
-                    newPassword: '',
-                    confirmPassword: ''
-                },
-            }
+        components: {
+            verify,
         },
-        computed: {
-            translateLeft() {
-                return {
-                    'translate-left': true,
-                    'login-col': true,
-                    'switch-left': this.switchLeft
+        data() {
+            const checkPhone = (rule, value, callback) => {
+                if (!value) {
+                    callback(new Error('请输入手机号'))
+                } else if (!(/^1(3|4|5|7|6|8|9)\d{9}$/.test(value))) {
+                    callback(new Error('输入的号码不符合规范，请输入11位手机号!'))
+                } else {
+                    callback()
                 }
-            },
-            translateRight() {
-                return {
-                    'translate-right': true,
-                    'login-col': true,
-                    'switch-right': this.switchLeft
-                }
+            }
+
+            return {
+                leftType: 1,
+                loginForm: {
+                    account: '',
+                    password: '',
+                },
+                registerForm: {
+                    account: '',
+                    password: '',
+                    phone: '',
+                    name: '',
+                    nickname: '',
+                },
+                forgetPasswordForm: {
+                    account: '',
+                    verifyCode: '',
+                    phone: '',
+                },
+                changePasswordForm: {
+                    password: '',
+                    newPassword: '',
+                },
+                verifySuccess: false,
+                loading: false,
+                loginRules: {
+                    account: [
+                        {
+                            required: true,
+                            message: '请输入账号',
+                            trigger: 'blur',
+                        },
+                    ],
+                    password: [
+                        {
+                            required: true,
+                            message: '请输入密码',
+                            trigger: 'blur'
+                        },
+                        {
+                            min: 6,
+                            message: '长度不能小于 6 个字符',
+                            trigger: 'blur'
+                        },
+                    ],
+                },
+                registerRules: {
+                    account: [
+                        {
+                            required: true,
+                            message: '请输入账号',
+                            trigger: 'blur'
+                        },
+                    ],
+                    password: [
+                        {
+                            required: true,
+                            message: '请输入密码',
+                            trigger: 'blur'
+                        },
+                        {
+                            min: 6,
+                            message: '长度不能小于 6 个字符',
+                            trigger: 'blur'
+                        },
+                    ],
+                    phone: [
+                        {
+                            validator: checkPhone,
+                            trigger: 'blur'
+                        },
+                    ],
+                },
+                forgetPasswordRules: {
+                    account: [
+                        {
+                            required: true,
+                            message: '请输入账号',
+                            trigger: 'blur'
+                        },
+                    ],
+                    phone: [
+                        {
+                            validator: checkPhone,
+                            trigger: 'blur'
+                        },
+                    ],
+                },
+                changePasswordRules: {
+                    password: [
+                        {
+                            required: true,
+                            message: '请输入密码',
+                            trigger: 'blur'
+                        },
+                    ],
+                    newPassword: [
+                        {
+                            required: true,
+                            message: '请输入密码',
+                            trigger: 'blur'
+                        },
+                    ],
+                },
+                isSendVerifyCode: false,
+                countdownTime: 60
             }
         },
         methods: {
-            wrapSwitch(state) {
-                this.switchLeft = !this.switchLeft
-                this.switchRight = !this.switchRight
-                setTimeout(() => {
-                    this.notforget = state
-                    this.$refs['ruleForm'].resetFields()
-                }, 300)
+            submitChangePassword() {
+                this.$refs['changePasswordForm'].validate((valid) => {
+                })
             },
-            async login() {
-                this.loading = true
-                let res = await User.login({username: this.loginForm.username, password: md5.hex_md5(this.loginForm.password)})
-                if (res.status === 1) {
-                    this.$success(res.msg)
-                    this.$store.commit('setToken', res.data.token)
-                    this.$store.commit('setUserInfo', res.data.user)
-                    this.$router.push({path: '/'})
-                } else {
-                    this.$error(res.msg)
-                }
-                setTimeout(() => {
-                    this.loading = false
-                }, this.$CONSTANT.DELAYTIME)
+            forgetPasswordNext() {
+                this.leftType = 4
             },
-            forgetHandle() {
-                this.$message.success('忘记密码')
-                this.wrapSwitch(true)
+            sendVerifyCode() {
+                this.$refs['forgetPasswordForm'].validate((valid) => {
+                    if (valid) {
+                        if (!this.isSendVerifyCode) {
+                            this.isSendVerifyCode = true
+                            const inter = setInterval(() => {
+                                if (this.countdownTime < 1) {
+                                    this.isSendVerifyCode = false
+                                    this.countdownTime = 60
+                                    clearInterval(inter)
+                                } else {
+                                    this.countdownTime--
+                                }
+                            }, 1000)
+                        }
+                    } else {
+                        console.log('error submit!!')
+                        return false
+                    }
+                    return false
+                })
             },
-        }
+            login() {
+                this.$refs.loginForm.validate((valid) => {
+                    if (valid) {
+                        // 管理员账号
+                        if (this.loginForm.account === this.CONFIG.ADMIN_ACCOUNT
+                            && this.loginForm.password === this.CONFIG.ADMIN_PASSWORD) {
+                            this.$store.commit(types.SET_TOKEN, 'adfasddfdsfadfads')
+                            this.$store.commit(types.SET_USERINFO, {
+                                account: this.CONFIG.ADMIN_ACCOUNT,
+                                password: this.CONFIG.ADMIN_PASSWORD,
+                                username: 'Admin',
+                                avatar: 'https://i.loli.net/2018/08/18/5b7819891bab1.jpg',
+                            })
+                        } else {
+                            this.$store.commit(types.SET_TOKEN, 'adfasddfdsfadfads')
+                        }
+                        this.$router.push({ path: '/' })
+                    } else {
+                        console.log('error submit!!')
+                        return false
+                    }
+                    return false
+                })
+            },
+            forgetPassword() {
+                this.leftType = 3
+                this.$refs['loginForm'].resetFields()
+                this.$refs['registerForm'].resetFields()
+            },
+            goRegister() {
+                this.leftType = 2
+                this.$refs['loginForm'].resetFields()
+                this.$refs['registerForm'].resetFields()
+            },
+            register() {
+                this.$refs['registerForm'].validate((valid) => {
+                    if (valid) {
+                        console.log('submit!!')
+                    } else {
+                        console.log('error submit!!')
+                        return false
+                    }
+                    return false
+                })
+            },
+            backLogin() {
+                this.leftType = 1
+                this.$refs['loginForm'].resetFields()
+                this.$refs['registerForm'].resetFields()
+            },
+            backForgetPassword() {
+                this.leftType = 3
+                this.$refs['forgetPasswordForm'].resetFields()
+            }
+        },
     }
 </script>
 
-<style lang="scss">
-    .forget-form, .login-form {
-        .el-form-item__content {
-            line-height: 40px
-        }
-
-        .el-input__inner {
-            padding-top: 2px;
-            height: 40px;
-            line-height: 40px;
-        }
-
-    }
-
-    .btn button {
-        width: 100%;
-        padding: 12px 20px;
-    }
-
-
-</style>
-
 <style lang="scss" scoped>
-    @import "../../assets/scss/color";
+    @import "../../assets/scss/color.scss";
 
-    .login-col {
+    .login {
+        background: $bg-color;
         height: 100%;
-    }
-
-    .login-page {
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
-        position: absolute;
-        height: 100%;
-        width: 100%;
 
-        .lang {
-            position: absolute;
-            right: 59px;
-            top: 24px;
-        }
+        .container {
+            display: flex;
+            width: 800px;
+            background: #fff;
+            border-radius: 4px;
+            box-shadow: 0px 2px 20px 7px rgba(195, 193, 193, 0.25) !important;
 
-        .svg-github {
-            position: absolute;
-            right: 29px;
-            top: 25px;
-        }
-
-        .translate-left, .translate-right {
-            will-change: auto;
-            transform: translateX(0px);
-            transition: transform .6s ease-in-out;
-        }
-
-        .switch-left {
-            transform: translateX(525px);
-        }
-
-        .switch-right {
-            transform: translateX(-375px);
-        }
-    }
-
-    .login-wrap {
-        overflow: hidden;
-        width: 900px;
-        height: 430px;
-        background: white;
-        border-radius: 4px;
-        transform: translateY(-10px);
-        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
-
-        .logo {
-            padding-top: 26px;
-            text-align: center;
-        }
-
-        .title {
-            font-weight: bold;
-            color: $main-color;
-            padding-top: 8px;
-            font-size: 22px;
-
-            a {
-                cursor: cell;
+            h5 {
+                color: #999;
             }
 
-            a:before {
-                content: '[';
-                opacity: 0;
-                margin-right: 10px;
-                transform: translateX(-10px);
-                transition: transform .2s, opacity .2s;
+            .form-body {
+                padding: 40px;
             }
 
-            a:after {
-                content: ']';
-                opacity: 0;
-                margin-left: 10px;
-                transform: translateX(10px);
-                transition: transform .2s, opacity .2s;
-            }
+            .logo-body {
+                height: 100%;
+                background: $main-color;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                color: #ffffff;
 
-            a:hover:after {
-                opacity: 1;
-                transform: translateX(0);
-            }
-
-            .subtitle {
-                color: $sub-color;
-            }
-        }
-
-        .forgetwrap-title {
-            padding-top: 30px;
-            padding-left: 15px;
-        }
-
-        .forget-form {
-            padding: 20px 30px 30px;
-            padding-bottom: 0;
-        }
-
-        .login-form {
-            padding: 30px;
-            padding-bottom: 0;
-        }
-
-        .login-footer {
-            padding: 0 30px;
-
-            .forgetpwd {
-                text-align: right;
-
-                span {
-                    cursor: pointer;
-                    font-size: 14px;
-                    font-weight: 500;
-                    color: #606266;
+                .name {
+                    margin-top: 20px;
+                    font-size: 32px;
                 }
             }
         }
-
-        .wallpaper {
-            width: 100%;
-            height: 100%;
-            background: url('../../assets/images/loginwallpaper.jpg');
-            background-size: cover;
-            position: relative;
-        }
     }
-
 </style>
