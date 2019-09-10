@@ -10,8 +10,11 @@ import store from './store'
 import mixin from './utils/mixin'
 import './mock'// 导入 mock 数据处理
 import api from './api'
-
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+// use
 Vue.config.productionTip = false
+Vue.use(mavonEditor)
 Vue.use(VCharts)
 Vue.use(Element, { size: 'medium' })
 Vue.component('icon', Icon);

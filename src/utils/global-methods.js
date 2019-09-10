@@ -1,6 +1,9 @@
 import { Message, MessageBox } from 'element-ui'
 
 export default {
+    coj(json){
+        console.log(JSON.stringify(json, null, 4))
+    },
     // 解析url
     $parseURL(url) {
         const a = document.createElement('a')

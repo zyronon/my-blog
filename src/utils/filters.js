@@ -1,4 +1,5 @@
 import dayjs from 'dayjs'
+import {isEmpty} from "element-ui/src/utils/util"
 
 export default {
     // 时间转换器
@@ -64,7 +65,19 @@ export default {
         if (v === undefined) return ''
         return ''
     },
-    
+    tags(v) {
+        if (isEmpty(v)) return ''
+        return  v.map(r=>r.name).join(',')
+    },
+    bool(v){
+       return v?'是':'否'
+    },
+    articleStatus(v){
+        switch (v) {
+            case 0:return '正常'
+            case 1:return '删除'
+        }
+    },
     // 处理身份证信息，中间隐藏掉
     processIdNumber(v) {
         if (!v) return ''

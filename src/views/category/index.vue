@@ -101,7 +101,7 @@
                 if (res.code === '000000') {
                     this.tableData.list = res.data.list
                     this.tableData.count  = res.data.count
-                    console.log(res.data.list)
+                    // console.log(res.data.list)
                 }
                 setTimeout(() => {
                     this.loading = false

@@ -1,36 +1,5 @@
 <template>
     <div class="all-list" v-loading="loading">
-        <el-card :body-style="{ 'padding-top': '6px' }">
-            <div slot="header">文章列表</div>
-            <div class="d-flex flex-wrap-wrap">
-                <div>
-                    <label>文章名称</label>
-                    <el-input
-                            v-model="searchData.title"
-                            placeholder="文章名称"
-                            class="mt14p ml10p mr20p w200p"
-                    ></el-input>
-                </div>
-<!--                <div>-->
-<!--                    <label>日期</label>-->
-<!--                    <el-date-picker-->
-<!--                            class="w300p mt14p ml10p mr20p"-->
-<!--                            v-model="searchDate"-->
-<!--                            type="daterange"-->
-<!--                            size="medium"-->
-<!--                            align="right"-->
-<!--                            format="yyyy-MM-dd"-->
-<!--                            value-format="timestamp"-->
-<!--                            range-separator="至"-->
-<!--                            start-placeholder="开始日期"-->
-<!--                            end-placeholder="结束日期"-->
-<!--                            :picker-options="CONSTANT.PICKEROPTIONS"-->
-<!--                    ></el-date-picker>-->
-<!--                </div>-->
-                <el-button type="primary" icon="el-icon-search" class="ml10p mt14p" @click="search()">搜索</el-button>
-                <el-button type="info" icon="el-icon-refresh" class="ml10p mt14p" @click="reset">重置</el-button>
-            </div>
-        </el-card>
         <el-card class="mt20p">
             <div class="d-flex justify-content-between align-items-center">
                 <span>共有{{tableData.count}}条数据</span>
@@ -47,30 +16,12 @@
             </div>
             <el-table :data="tableData.list" border stripe class="mt20p" @selection-change="handleSelectionChange">
                 <el-table-column type="selection"></el-table-column>
-                <el-table-column fixed prop="title" label="标题" min-width="100"></el-table-column>
-                <el-table-column prop="clickCount" label="点击量" min-width="100"></el-table-column>
+                <el-table-column prop="name" label="名称" min-width="100"></el-table-column>
                 <el-table-column prop="createTime" label="创建时间" min-width="100">
                     <template v-slot="scope">{{scope.row.createTime|dateDay}}</template>
                 </el-table-column>
-                <el-table-column prop="updateTime" label="更新时间" min-width="100">
-                    <template v-slot="scope">{{scope.row.updateTime|dateDay}}</template>
-                </el-table-column>
-                <el-table-column prop="sort" label="排序" min-width="100"></el-table-column>
-                <el-table-column prop="isCanComment" label="是否可评论" min-width="100">
-                    <template v-slot="scope">{{scope.row.isCanComment|bool}}</template>
-                </el-table-column>
-                <el-table-column prop="isTop" label="是否置顶" min-width="100">
-                    <template v-slot="scope">{{scope.row.isTop|bool}}</template>
-                </el-table-column>
                 <el-table-column prop label="操作" align="center" fixed="right" min-width="200">
                     <template v-slot="scope">
-                        <el-button
-                                @click="$router.push({path:'detail',query:{id:scope.row.id}})"
-                                icon="el-icon-reading"
-                                type="primary"
-                                size="small"
-                        >查看
-                        </el-button>
                         <el-button
                                 @click="$router.push({path:'create',query:{id:scope.row.id}})"
                                 type="primary"
@@ -89,7 +40,6 @@
                         @size-change="handleSizeChange"
                         @current-change="handleCurrentChange"
                         :current-page="offset"
-                        :page-sizes="[10, 20, 30, 40]"
                         :page-size="limit"
                         layout="total, sizes, prev, pager, next, jumper"
                         :total="tableData.count"
@@ -104,9 +54,8 @@
         data() {
             return {
                 loading: false,
-                searchDate: [],
-                searchData: {},
                 multipleSelection: [],
+                searchData: {},
                 tableData: {
                     list: [],
                     count: 0
@@ -114,15 +63,6 @@
                 offset: 1,
                 limit: 10,
                 isSearch: false
-            }
-        },
-        watch: {
-            // 检测到这个值有变动，设置到searchData里面
-            searchDate(newValue) {
-                if (newValue && newValue.length > 0) {
-                    this.searchData.minCreateTime = newValue[0]
-                    this.searchData.maxCreateTime = newValue[1]
-                }
             }
         },
         created() {
@@ -156,11 +96,11 @@
                     this.searchData.offset = this.offset
                     params = this.searchData
                 }
-                let res = await this.$api.article.select({}, params)
+                let res = await this.$api.tag.select({}, params)
                 if (res.code === '000000') {
                     this.tableData.list = res.data.list
                     this.tableData.count  = res.data.count
-                    console.log(res.data.list)
+                    // console.log(res.data.list)
                 }
                 setTimeout(() => {
                     this.loading = false
@@ -181,7 +121,7 @@
             },
             del(row) {
                 this.$mConfirm('', '此操作将永久删除该文件, 是否继续?',async () => {
-                    let res = await this.$api.article.del({},{id:row.id})
+                    let res = await this.$api.tag.del({},{id:row.id})
                     if (res.code === '000000') {
                         this.$success(res.msg)
                         this.getData()
@@ -192,7 +132,7 @@
             },
             delMore(row) {
                 this.$mConfirm('', '此操作将永久删除该文件, 是否继续?',async () => {
-                    let res = await this.$api.article.delMore(this.multipleSelection);
+                    let res = await this.$api.tag.delMore(this.multipleSelection);
                     if (res.code === '000000') {
                         this.$success(res.msg)
                         this.getData()

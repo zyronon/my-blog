@@ -1,5 +1,5 @@
 <template>
-    <div class="add-category" v-loading="loading">
+    <div class="add-tag" v-loading="loading">
         <el-row>
             <el-button type="primary"
                        icon="el-icon-arrow-left"
@@ -10,25 +10,13 @@
         </el-row>
         <el-card class="box-card">
             <div slot="header" class="clearfix">
-                <span>{{form.id?'编辑':'添加'}}分类</span>
+                <span>{{form.id?'编辑':'添加'}}标签</span>
                 <el-button style="float: right; padding: 3px 0" type="text">提交</el-button>
             </div>
             <el-form ref="form" :model="form" label-width="120px" label-position="left">
                 <el-form-item label="名字:">
                     <el-input v-model="form.name" 　placeholder="请输入名字"></el-input>
                 </el-form-item>
-                <el-row>
-                    <el-col :span="24">
-                        <el-form-item label="描述:">
-                            <el-input
-                                    type="textarea"
-                                    autosize
-                                    placeholder="请输入描述"
-                                    v-model="form.description">
-                            </el-input>
-                        </el-form-item>
-                    </el-col>
-                </el-row>
             </el-form>
             <el-row style="border-top: 1px solid gainsboro;padding-top: 20px;">
                 <el-col :span="24">
@@ -70,7 +58,7 @@
             },
             async getData() {
                 this.loading = true
-                let res = await this.$api.category.detail({}, {id: this.form.id})
+                let res = await this.$api.tag.detail({}, {id: this.form.id})
                 if (res.code === '000000') {
                     this.form = res.data
                 } else {
@@ -84,9 +72,9 @@
                 this.loading = true
                 let res
                 if (this.form.id){
-                     res = await this.$api.category.edit(this.form)
+                     res = await this.$api.tag.edit(this.form)
                 }else {
-                     res = await this.$api.category.create(this.form)
+                     res = await this.$api.tag.create(this.form)
                 }
                 if (res.code === '000000') {
                     this.$success(res.msg)

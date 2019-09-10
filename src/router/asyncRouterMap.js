@@ -79,7 +79,7 @@ export const asyncRouterMap = [
         children: [
             {
                 path: 'index',
-                name: 'index',
+                name: 'category-index',
                 component: _import('category/index'),
                 hidden: false,
                 meta: {
@@ -89,8 +89,40 @@ export const asyncRouterMap = [
             },
             {
                 path: 'create',
-                name: 'create',
+                name: 'category-create',
                 component: _import('category/create'),
+                hidden: true,
+                meta: {
+                    title: ' 创建',
+                    icon: 'comp',
+                },
+            }
+        ],
+    },
+    {
+        path: '/tag',
+        name: 'tag',
+        component: Layout,
+        hidden: false,
+        meta: {
+            title: '标签',
+            icon: 'comp',
+        },
+        children: [
+            {
+                path: 'index',
+                name: 'tag-index',
+                component: _import('tag/index'),
+                hidden: false,
+                meta: {
+                    title: '标签列表',
+                    icon: 'comp',
+                },
+            },
+            {
+                path: 'create',
+                name: 'tag-create',
+                component: _import('tag/create'),
                 hidden: true,
                 meta: {
                     title: ' 创建',
