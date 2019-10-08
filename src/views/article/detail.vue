@@ -49,8 +49,7 @@
             <el-row>
                 <el-col :span="24" class="mt20p">
                     <label for>内容：</label>
-                    <p v-if="form.isMarkdownEditor" v-html="form.mdContent"></p>
-                    <p v-else v-html="form.htmlContent"></p>
+                    <p :class="form.isMarkdownEditor?'markdown-body':''"  v-html="form.htmlContent"></p>
                 </el-col>
             </el-row>
             <el-row class="tac mt20p" style="border-top: 1px solid gainsboro;padding-top: 20px;">

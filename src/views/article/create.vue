@@ -81,13 +81,16 @@
                 </el-row>
                 <el-row v-show="form.isMarkdownEditor">
                     <el-col :span="24">
-                        <mavon-editor ref="mEditor" codeStyle="atom-one-dark" v-model="form.mdContent"
-                                      style="max-height: 900px;"/>
+                        <mavon-editor ref='md'
+                                      codeStyle="atom-one-dark"
+                                      @imgAdd="$imgAdd"
+                                      v-model="form.mdContent"
+                                      style="max-height: 1200px;"/>
                     </el-col>
                 </el-row>
                 <el-row v-show="!form.isMarkdownEditor">
                     <el-col :span="24">
-                        <div ref="editor" style="text-align:left"></div>
+                        <div ref="editor" class="htmlEditor" style="text-align:left"></div>
                     </el-col>
                 </el-row>
             </el-form>
@@ -115,7 +118,6 @@
 </template>
 
 <script>
-    // import E from 'wangeditor'
     const E = window.wangEditor
 
     export default {
@@ -126,7 +128,7 @@
                 form: {
                     summary: '',
                     isCanComment: true,
-                    isMarkdownEditor: false,
+                    isMarkdownEditor: true,
                 },
                 tagList: [],
                 categoryList: [],
@@ -140,6 +142,17 @@
             this.getData()
         },
         methods: {
+            // 绑定@imgAdd event
+            $imgAdd(pos, $file) {
+
+                // 第一步.将图片上传到服务器.
+                let formdata = new FormData();
+                formdata.append('file', $file);
+                this.$upload(formdata).then(r => {
+                    // this.$refs.md.$img2Url(pos,r.data);
+                    this.$refs.md.$img2Url(pos, this.$displayImg(r.data));
+                })
+            },
             back() {
                 this.$router.go(-1)
             },
@@ -151,11 +164,11 @@
                     this.tagList = res.data.tags
                     this.categoryList = res.data.categories
                 }
-                if (this.form.id){
-                    let article = await this.$api.article.editDetail({},{id:this.form.id})
+                if (this.form.id) {
+                    let article = await this.$api.article.editDetail({}, {id: this.form.id})
                     if (article.code === this.CONSTANT.SUCCESS) {
                         this.form = article.data
-                        if (!this.form.isMarkdownEditor){
+                        if (!this.form.isMarkdownEditor) {
                             this.editor.txt.html(this.form.htmlContent)
                         }
                     }
@@ -166,6 +179,7 @@
             },
             async submit() {
                 if (this.form.isMarkdownEditor) {
+                    this.form.htmlContent = this.$refs.md.d_render
                     if (!this.form.summary) {
                         if (this.form.mdContent.length > 150) {
                             this.form.summary = this.form.mdContent.substr(0, 150) + '...'
@@ -216,15 +230,31 @@
             },
         },
         mounted() {
+            let that = this
             this.editor = new E(this.$refs.editor)
             this.editor.customConfig.onchange = (html) => {
                 this.editorContent = html
             }
+            this.editor.customConfig.customUploadImg = function (files, insert) {
+                console.log(files)
+                // files 是 input 中选中的文件列表
+                // insert 是获取图片 url 后，插入到编辑器的方法
+
+                // 上传代码返回结果之后，将图片插入到编辑器中
+                let formdata = new FormData();
+                formdata.append('file', files[0]);
+                that.$upload(formdata).then(r => {
+                    // this.$refs.md.$img2Url(pos,r.data);
+                    insert(that.$displayImg(r.data))
+                })
+            }
             this.editor.create()
+
+            let edit = document.querySelector('.w-e-text-container')
+            edit.style = 'border:1px solid #ccc; border-top:none; z-index:10000;min-height: 500px ;'
         },
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
 </style>

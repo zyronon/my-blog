@@ -23,7 +23,7 @@ router.beforeEach(async (to, from, next) => {
             // 如果是管理员，直接添加本地写好的动态路由，上线后记得注释掉此代码
             if (store.state.user.userInfo && store.state.user.userInfo.account === Config.ADMIN_ACCOUNT
                 && store.state.user.userInfo.password === Config.ADMIN_PASSWORD) {
-                console.log('管理员账号')
+                // console.log('管理员账号')
                 store.commit(types.SET_ROLES, asyncRouterMap)
                 router.addRoutes(store.state.user.roles)
                 next({ path: '/' })
@@ -32,7 +32,7 @@ router.beforeEach(async (to, from, next) => {
                 // 获取用户信息
                 store.dispatch('getUserInfo').then(
                     (resolve) => {
-                        console.log(resolve)
+                        // console.log(resolve)
                         // 成功提示
                         globalMethods.$success(resolve)
                         

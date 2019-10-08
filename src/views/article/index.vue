@@ -49,6 +49,7 @@
                 <el-table-column type="selection"></el-table-column>
                 <el-table-column fixed prop="title" label="标题" min-width="100"></el-table-column>
                 <el-table-column prop="clickCount" label="点击量" min-width="100"></el-table-column>
+                <el-table-column prop="categoryName" label="分类名" min-width="100"></el-table-column>
                 <el-table-column prop="createTime" label="创建时间" min-width="100">
                     <template v-slot="scope">{{scope.row.createTime|dateDay}}</template>
                 </el-table-column>
@@ -160,7 +161,7 @@
                 if (res.code === '000000') {
                     this.tableData.list = res.data.list
                     this.tableData.count  = res.data.count
-                    console.log(res.data.list)
+                    // console.log(res.data.list)
                 }
                 setTimeout(() => {
                     this.loading = false

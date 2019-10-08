@@ -322,7 +322,7 @@
                             }, 1000)
                         }
                     } else {
-                        console.log('error submit!!')
+                        // console.log('error submit!!')
                         return false
                     }
                     return false
@@ -346,7 +346,7 @@
                         }
                         this.$router.push({ path: '/' })
                     } else {
-                        console.log('error submit!!')
+                        // console.log('error submit!!')
                         return false
                     }
                     return false
@@ -365,9 +365,9 @@
             register() {
                 this.$refs['registerForm'].validate((valid) => {
                     if (valid) {
-                        console.log('submit!!')
+                        // console.log('submit!!')
                     } else {
-                        console.log('error submit!!')
+                        // console.log('error submit!!')
                         return false
                     }
                     return false

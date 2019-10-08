@@ -1,4 +1,6 @@
 import { Message, MessageBox } from 'element-ui'
+import Config from "../config"
+import axios from "axios"
 
 export default {
     coj(json){
@@ -31,7 +33,7 @@ export default {
         }
     },
     $jsonParse(v) {
-        console.log(v)
+        // console.log(v)
         if (v !== undefined && v !== null && v !== '') {
             let temp
             try {
@@ -84,7 +86,39 @@ export default {
         }
         return itemArr
     },
-    
+    $upload(data) {
+        return new Promise((async (resolve, reject) => {
+            let baseUrl = process.env.NODE_ENV === 'production' ? Config.PRODUCT_API_URL : Config.API_URL + Config.API_VERSION + 'file/uploadImg'
+            let res = await axios.post(baseUrl, data, {
+                    headers: {'Content-Type': 'multipart/form-data'}
+                }
+            ).catch(err => {
+                reject({
+                    msg: '上传文件失败',
+                    err
+                })
+            })
+            if (res) {
+                if (res.status === 200) {
+                    resolve(res.data)
+                } else {
+                    reject(res.statusText)
+                }
+            }
+        }))
+    },
+    /**
+     * @apiDescription    展示图片
+     * @apiGroup
+     * @apiName
+     * @apiParam    image   图片url
+     * @apiParamExample
+     *
+     * @apiReturn
+     */
+    $displayImg(image) {
+        return  Config.API_URL + '/static/uploads/' + image
+    },
     $mConfirm(type, msg, onConfirm) {
         MessageBox.confirm(msg === '' ? '确定删除这条数据？' : msg, '提示', {
             confirmButtonText: '确定',
