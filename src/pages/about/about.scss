@@ -276,6 +276,7 @@
 
 
       .project-summary {
+        font-size: 1.4rem;
         overflow: auto;
         margin: 0 auto;
         width: 990px;
@@ -300,7 +301,8 @@
             left: -$width;
             width: 100%;
             height: 100%;
-            background: rgba(235, 46, 44, 0.8);;
+            //background: rgba(235, 46, 44, 0.8);
+            background: #7db9dedd;
           }
 
           img {
