@@ -71,7 +71,7 @@
             async getData() {
                 this.loading = true
                 let res = await this.$api.category.detail({}, {id: this.form.id})
-                if (res.code === '000000') {
+                if (res.code === 0) {
                     this.form = res.data
                 } else {
                     this.$warning(res.msg)
@@ -88,7 +88,7 @@
                 }else {
                      res = await this.$api.category.create(this.form)
                 }
-                if (res.code === '000000') {
+                if (res.code === 0) {
                     this.$success(res.msg)
                     this.back()
                 } else {

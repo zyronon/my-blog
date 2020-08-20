@@ -341,10 +341,10 @@
                                 username: 'Admin',
                                 avatar: 'https://i.loli.net/2018/08/18/5b7819891bab1.jpg',
                             })
+                            this.$router.push({ path: '/' })
                         } else {
-                            this.$store.commit(types.SET_TOKEN, 'adfasddfdsfadfads')
+                            this.$error('登录失败')
                         }
-                        this.$router.push({ path: '/' })
                     } else {
                         // console.log('error submit!!')
                         return false

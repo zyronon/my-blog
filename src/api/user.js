@@ -5,7 +5,7 @@ export default {
     userInfo(data, params) { // eslint-disable-line
         // return request('patient/read', data, params, CONSTANT.GET)
         return Promise.resolve({
-            code: '000000',
+            code: 0,
             data: {
                 account: 'Admin',
                 username: 'Admin',

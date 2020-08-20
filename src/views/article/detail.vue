@@ -85,7 +85,7 @@
         methods: {
             async getData() {
                 this.loading = false
-                let article = await this.$api.article.previewDetail({},{id:this.form.id})
+                const article = await this.$api.article.previewDetail({},{id:this.form.id})
                 if (article.code === this.CONSTANT.SUCCESS) {
                     this.form = article.data
                 }

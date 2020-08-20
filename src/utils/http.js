@@ -30,7 +30,7 @@ instance.interceptors.response.use(
         const { data } = response
         if (response.status !== 200) {
             globalMethods.$warning(response.statusText)
-            if (data.code === '000000') {
+            if (data.code === 0) {
                 // 接口自定义错误代码
                 // 移除登陆token 显示接口错误消息
             }

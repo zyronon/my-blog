@@ -39,5 +39,5 @@ export default {
     PAGENUMBER: 1,
     PAGESIZE: 10,
     DELAYTIME: 250,
-    SUCCESS: '000000',
+    SUCCESS: 0,
 }

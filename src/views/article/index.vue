@@ -11,22 +11,22 @@
                             class="mt14p ml10p mr20p w200p"
                     ></el-input>
                 </div>
-<!--                <div>-->
-<!--                    <label>日期</label>-->
-<!--                    <el-date-picker-->
-<!--                            class="w300p mt14p ml10p mr20p"-->
-<!--                            v-model="searchDate"-->
-<!--                            type="daterange"-->
-<!--                            size="medium"-->
-<!--                            align="right"-->
-<!--                            format="yyyy-MM-dd"-->
-<!--                            value-format="timestamp"-->
-<!--                            range-separator="至"-->
-<!--                            start-placeholder="开始日期"-->
-<!--                            end-placeholder="结束日期"-->
-<!--                            :picker-options="CONSTANT.PICKEROPTIONS"-->
-<!--                    ></el-date-picker>-->
-<!--                </div>-->
+                <!--                <div>-->
+                <!--                    <label>日期</label>-->
+                <!--                    <el-date-picker-->
+                <!--                            class="w300p mt14p ml10p mr20p"-->
+                <!--                            v-model="searchDate"-->
+                <!--                            type="daterange"-->
+                <!--                            size="medium"-->
+                <!--                            align="right"-->
+                <!--                            format="yyyy-MM-dd"-->
+                <!--                            value-format="timestamp"-->
+                <!--                            range-separator="至"-->
+                <!--                            start-placeholder="开始日期"-->
+                <!--                            end-placeholder="结束日期"-->
+                <!--                            :picker-options="CONSTANT.PICKEROPTIONS"-->
+                <!--                    ></el-date-picker>-->
+                <!--                </div>-->
                 <el-button type="primary" icon="el-icon-search" class="ml10p mt14p" @click="search()">搜索</el-button>
                 <el-button type="info" icon="el-icon-refresh" class="ml10p mt14p" @click="reset">重置</el-button>
             </div>
@@ -42,25 +42,24 @@
                             @click="$router.push('create')"
                     >新建
                     </el-button>
-                    <el-button type="primary" :disabled="!multipleSelection.length" icon="el-icon-delete" @click="delMore()">删除</el-button>
+                    <el-button type="primary" :disabled="!multipleSelection.length" icon="el-icon-delete"
+                               @click="delMore()">删除
+                    </el-button>
                 </div>
             </div>
             <el-table :data="tableData.list" border stripe class="mt20p" @selection-change="handleSelectionChange">
                 <el-table-column type="selection"></el-table-column>
-                <el-table-column fixed prop="title" label="标题" min-width="100"></el-table-column>
-                <el-table-column prop="clickCount" label="点击量" min-width="100"></el-table-column>
+                <el-table-column fixed prop="title" label="标题" min-width="300"></el-table-column>
                 <el-table-column prop="categoryName" label="分类名" min-width="100"></el-table-column>
-                <el-table-column prop="createTime" label="创建时间" min-width="100">
-                    <template v-slot="scope">{{scope.row.createTime|dateDay}}</template>
-                </el-table-column>
                 <el-table-column prop="updateTime" label="更新时间" min-width="100">
                     <template v-slot="scope">{{scope.row.updateTime|dateDay}}</template>
                 </el-table-column>
-                <el-table-column prop="sort" label="排序" min-width="100"></el-table-column>
-                <el-table-column prop="isCanComment" label="是否可评论" min-width="100">
+                <el-table-column prop="clickCount" label="点击量" min-width="50"></el-table-column>
+                <el-table-column prop="sort" label="排序" min-width="50"></el-table-column>
+                <el-table-column prop="isCanComment" label="是否可评论" min-width="50">
                     <template v-slot="scope">{{scope.row.isCanComment|bool}}</template>
                 </el-table-column>
-                <el-table-column prop="isTop" label="是否置顶" min-width="100">
+                <el-table-column prop="isTop" label="是否置顶" min-width="50">
                     <template v-slot="scope">{{scope.row.isTop|bool}}</template>
                 </el-table-column>
                 <el-table-column prop label="操作" align="center" fixed="right" min-width="200">
@@ -158,9 +157,9 @@
                     params = this.searchData
                 }
                 let res = await this.$api.article.select({}, params)
-                if (res.code === '000000') {
+                if (res.code === 0) {
                     this.tableData.list = res.data.list
-                    this.tableData.count  = res.data.count
+                    this.tableData.count = res.data.count
                     // console.log(res.data.list)
                 }
                 setTimeout(() => {
@@ -181,23 +180,23 @@
                 this.multipleSelection = val;
             },
             del(row) {
-                this.$mConfirm('', '此操作将永久删除该文件, 是否继续?',async () => {
-                    let res = await this.$api.article.del({},{id:row.id})
-                    if (res.code === '000000') {
+                this.$mConfirm('', '此操作将永久删除该文件, 是否继续?', async () => {
+                    let res = await this.$api.article.del({}, {id: row.id})
+                    if (res.code === 0) {
                         this.$success(res.msg)
                         this.getData()
-                    }else{
+                    } else {
                         this.$error(res.msg)
                     }
                 })
             },
             delMore(row) {
-                this.$mConfirm('', '此操作将永久删除该文件, 是否继续?',async () => {
+                this.$mConfirm('', '此操作将永久删除该文件, 是否继续?', async () => {
                     let res = await this.$api.article.delMore(this.multipleSelection);
-                    if (res.code === '000000') {
+                    if (res.code === 0) {
                         this.$success(res.msg)
                         this.getData()
-                    }else{
+                    } else {
                         this.$error(res.msg)
                     }
                 })

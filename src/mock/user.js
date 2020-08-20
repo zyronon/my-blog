@@ -8,7 +8,7 @@ import Mock from 'mockjs'
             'content|1': '@csentence',
             'createTime|1': "@date('T')",
         }],
-        'code|1': '000000',
+        'code|1': 0,
         msg: '',
     })
     Mock.mock(/user\/notReadMessages/, data)
@@ -22,7 +22,7 @@ import Mock from 'mockjs'
             'content|1': '@csentence',
             'createTime|1': "@date('T')",
         }],
-        'code|1': '000000',
+        'code|1': 0,
         msg: '',
     })
     Mock.mock(/user\/hasReadAllMessage/, data)

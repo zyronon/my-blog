@@ -43,7 +43,7 @@
         methods: {
             async remove(item) {
                 const res = await this.$api.user.hasReadMessage({ id: item.id })
-                if (res.code === '000000') {
+                if (res.code === 0) {
                     this.$store.commit(types.SET_NOT_READ_MESSAGES, res.data)
                 } else {
                     this.$error(res.msg)
@@ -51,7 +51,7 @@
             },
             async removeAll() {
                 const res = await this.$api.user.hasReadAllMessage({})
-                if (res.code === '000000') {
+                if (res.code === 0) {
                     this.$store.commit(types.SET_NOT_READ_MESSAGES, res.data)
                 } else {
                     this.$error(res.msg)
@@ -59,7 +59,7 @@
             },
             async getData() {
                 const res = await this.$api.user.notReadMessages({})
-                if (res.code === '000000') {
+                if (res.code === 0) {
                     this.$store.commit(types.SET_NOT_READ_MESSAGES, res.data)
                 } else {
                     this.$error(res.msg)

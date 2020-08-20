@@ -97,7 +97,7 @@
                     params = this.searchData
                 }
                 let res = await this.$api.tag.select({}, params)
-                if (res.code === '000000') {
+                if (res.code === 0) {
                     this.tableData.list = res.data.list
                     this.tableData.count  = res.data.count
                     // console.log(res.data.list)
@@ -122,7 +122,7 @@
             del(row) {
                 this.$mConfirm('', '此操作将永久删除该文件, 是否继续?',async () => {
                     let res = await this.$api.tag.del({},{id:row.id})
-                    if (res.code === '000000') {
+                    if (res.code === 0) {
                         this.$success(res.msg)
                         this.getData()
                     }else{
@@ -133,7 +133,7 @@
             delMore(row) {
                 this.$mConfirm('', '此操作将永久删除该文件, 是否继续?',async () => {
                     let res = await this.$api.tag.delMore(this.multipleSelection);
-                    if (res.code === '000000') {
+                    if (res.code === 0) {
                         this.$success(res.msg)
                         this.getData()
                     }else{
