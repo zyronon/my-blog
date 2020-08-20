@@ -2,16 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
+    <link rel="icon" href="http://blogapi.ttentau.top/static/uploads/images/favicon.ico">
+    <title>TTentau的博客</title>
     <title><%= htmlWebpackPlugin.options.title %></title>
-    <link href="https://cdn.bootcss.com/normalize/8.0.1/normalize.min.css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link crossorigin="anonymous" integrity="sha384-7/Tl0k65OTvDSvtuq7aPR7aa0aCz7ZKqHsbMRLxhzueldW+9MZpCe9LB1c5UBuNS"
-          href="https://lib.baomitu.com/animate.css/3.7.2/animate.min.css" rel="stylesheet">
-    <script crossorigin="anonymous" integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh"
-            src="https://lib.baomitu.com/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
-<div class="body-ctn">
+<div class="body-ctn" id="app">
     ${require('html-loader!../../components/header/header.html')}
     <section>
         <div class="border-decorate-a">
@@ -20,33 +17,23 @@
                     <h2 class="notice">博客文章</h2>
                     <div class="post-wrapper">
                         <ul class="post-list" id="post-list">
-                            <li class="post-list-item">
+                            <li v-for="item of articles" class="post-list-item">
                                 <article id="post-你不需要jQuery" class="">
                                     <h3 class="post-title">
-                                        <a href="/article.html">你不需要jQuery</a>
+                                        <a :href="'/article.html?id='+item.id">{{item.title}}</a>
                                     </h3>
                                     <div class="post-content">
-                                        前端发展很快，现代浏览器原生 API 已经足够好用。
+                                        {{item.summary}}
                                     </div>
                                     <div class="post-footer">
                                         <ul class="article-tag-list">
-                                            <li class="article-tag-list-item"
+                                            <li class="article-tag-list-item" v-for="tag of item.tags"
                                                 style="background: rgb(236, 209, 137);">
-                                                <a class="article-tag-list-link" href="/blog/tags/JavaScript/">JavaScript</a>
-                                            </li>
-                                            <li class="article-tag-list-item"
-                                                style="background: rgb(212, 236, 160);">
-                                                <a class="article-tag-list-link"
-                                                   href="/blog/tags/jQuery/">jQuery</a>
-                                            </li>
-                                            <li class="article-tag-list-item"
-                                                style="background: rgb(236, 209, 137);">
-                                                <a class="article-tag-list-link" href="/blog/tags/前端/">前端</a>
+                                                <a class="article-tag-list-link">{{tag.name}}</a>
                                             </li>
                                         </ul>
                                         <div class="post-meta">
-                                            <time class="post-time" title="2019-04-01 18:54:01"
-                                                  datetime="2019-04-01T10:54:01.000Z">2019-04-01
+                                            <time class="post-time">{{item.updateTime|date}}
                                             </time>
                                         </div>
                                     </div>
@@ -61,3 +48,6 @@
 </div>
 </body>
 </html>
+<script>
+
+</script>

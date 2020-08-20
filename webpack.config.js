@@ -14,35 +14,35 @@ module.exports = {
         new CleanWebpackPlugin(),//清除dist目录多余文件
         new HtmlWebpackPlugin({
             //生成index.html并自动导入js文件
-            title: 'index',
+            title: '首页',
             filename: 'index.html',
             template: './src/pages/index/index.html',
             chunks: ['index'],
             minify: true
         }),
         new HtmlWebpackPlugin({
-            title: 'project',
+            title: '项目',
             filename: "project.html",
             template: './src/pages/project/project.html',
             chunks: ['project'],
             minify: true
         }),
         new HtmlWebpackPlugin({
-            title: 'article',
+            title: '文章详情',
             filename: "article.html",
             template: './src/pages/article/article.html',
             chunks: ['article'],
             minify: true
         }),
         new HtmlWebpackPlugin({
-            title: 'archive',
+            title: '归档',
             filename: "archive.html",
             template: './src/pages/archive/archive.html',
             chunks: ['archive'],
             minify: true
         }),
         new HtmlWebpackPlugin({
-            title: 'about',
+            title: '关于我',
             filename: "about.html",
             template: './src/pages/about/about.html',
             chunks: ['about'],
