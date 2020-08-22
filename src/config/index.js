@@ -1,6 +1,6 @@
 export default {
     IS_DEV: true,
-    // API_URL: 'http://blogapi.ttentau.com',
+    // API_URL: 'http://blogapi.ttentau.top',
     API_URL: 'http://www.testblog.com/index.php',
     PRODUCT_API_URL: 'http://blogapi.ttentau.top',
     

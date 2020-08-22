@@ -144,7 +144,6 @@
         methods: {
             // 绑定@imgAdd event
             $imgAdd(pos, $file) {
-
                 // 第一步.将图片上传到服务器.
                 let formdata = new FormData();
                 formdata.append('file', $file);

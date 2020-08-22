@@ -1,9 +1,9 @@
-import { Message, MessageBox } from 'element-ui'
+import {Message, MessageBox} from 'element-ui'
 import Config from "../config"
 import axios from "axios"
 
 export default {
-    coj(json){
+    coj(json) {
         console.log(JSON.stringify(json, null, 4))
     },
     // 解析url
@@ -88,7 +88,8 @@ export default {
     },
     $upload(data) {
         return new Promise((async (resolve, reject) => {
-            let baseUrl = process.env.NODE_ENV === 'production' ? Config.PRODUCT_API_URL : Config.API_URL + Config.API_VERSION + 'file/uploadImg'
+            let baseUrl = (process.env.NODE_ENV === 'production' ? Config.PRODUCT_API_URL : Config.API_URL) + Config.API_VERSION + 'file/uploadImg'
+            console.log(baseUrl);
             let res = await axios.post(baseUrl, data, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 }
@@ -117,7 +118,7 @@ export default {
      * @apiReturn
      */
     $displayImg(image) {
-        return  Config.API_URL + '/static/uploads/' + image
+        return (process.env.NODE_ENV === 'production' ? Config.PRODUCT_API_URL : Config.API_URL) + '/static/uploads/' + image
     },
     $mConfirm(type, msg, onConfirm) {
         MessageBox.confirm(msg === '' ? '确定删除这条数据？' : msg, '提示', {
@@ -129,7 +130,7 @@ export default {
         }).catch(() => {
         })
     },
-    
+
     $success(msg) {
         Message({
             type: 'success', message: msg, duration: 1500, showClose: true,
@@ -152,7 +153,7 @@ export default {
         // const isIOS = /(iphone|ipod|ipad|ios)/i.test(navigator.userAgent)
         // const isAndroid = /android/i.test(navigator.userAgent)
     },
-    
+
     // 倒计时时间格式化
     $countdownFormatTime(timeStamp) {
         const day = Math.floor(timeStamp / (24 * 3600 * 1000))
