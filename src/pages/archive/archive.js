@@ -22,8 +22,8 @@ new Vue({
         getData() {
             let that = this
             $.ajax({
-                url: 'http://www.testblog.com/index.php/v1/article/archive',
-                // url: 'http://blogapi.ttentau.top/v1/article/archive',
+                // url: 'http://www.testblog.com/index.php/v1/article/archive',
+                url: 'http://blogapi.ttentau.top/v1/article/archive',
                 success(res) {
                     if (res.code === 0) {
                         that.list = res.data

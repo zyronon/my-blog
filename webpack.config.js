@@ -9,10 +9,27 @@ module.exports = {
         article: './src/pages/article/article.js',
         archive: './src/pages/archive/archive.js',
         about: './src/pages/about/about.js',
+        about_file: './src/pages/about/about_file.js',
+        home: './src/pages/about/home.js',
     },
     plugins: [
         new CleanWebpackPlugin(),//清除dist目录多余文件
         new HtmlWebpackPlugin({
+            //生成index.html并自动导入js文件
+            title: 'home',
+            filename: 'home.html',
+            template: './src/pages/about/home.html',
+            chunks: ['home'],
+            minify: true
+        }),
+        new HtmlWebpackPlugin({
+            //生成index.html并自动导入js文件
+            title: 'about_file',
+            filename: 'about_file.html',
+            template: './src/pages/about/about_file.html',
+            chunks: ['about_file'],
+            minify: true
+        }), new HtmlWebpackPlugin({
             //生成index.html并自动导入js文件
             title: '首页',
             filename: 'index.html',

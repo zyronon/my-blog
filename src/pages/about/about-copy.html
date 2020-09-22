@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="http://blogapi.ttentau.top/static/uploads/images/favicon.ico">
+    <title>关于我</title>
+    <title><%= htmlWebpackPlugin.options.title %></title>
+</head>
+<body>
+<div class="body-ctn">
+    ${require('html-loader!../../components/header/header.html')}
+    <div class="container">
+        <div class="about-me">
+            <div class="image">
+                <img src="${require(`../../assets/img/about-me-bg.jpg`)}" alt="">
+            </div>
+            <div class="col">
+                <h1 class="name">王念超</h1>
+                <h2>个人简介</h2>
+                <div class="description">
+                    <p>
+                        2019年初开始研究网络安全方面，参加过2019、2020两次护网，对网络安全非常感兴趣。在漏洞平台提交过漏洞，也曾拿到一些外国服务器权限并进行内网渗透
+                    </p>
+                    <p>&nbsp;</p>
+                    <p>
+                        做安全之前，曾从事前端开发；两年前端经验，前端各种类型项目都有其参与开发，写得比较多的偏后台管理系统和小程序
+                    </p>
+                    <p>
+                        前端各种新技术都玩过，比较喜欢钻研新技术， 三大框架相比之下，我还是比较喜欢Vue。
+                    </p>
+                </div>
+                <h3>参与项目</h3>
+                <div class="description">
+                    <p>2019、2020两次护网</p>
+                    <p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2020-00624">ZeroDay提交漏洞：ZD-2020-00624</a></p>
+                    <p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2020-00625">ZeroDay提交漏洞：ZD-2020-00625</a></p>
+                    <p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2020-00629">ZeroDay提交漏洞：ZD-2020-00629</a></p>
+                    <p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2020-00630">ZeroDay提交漏洞：ZD-2020-00630</a></p>
+                    <p><a href="https://zeroday.hitcon.org/vulnerability/ZD-2020-00631">ZeroDay提交漏洞：ZD-2020-00631</a></p>
+                </div>
+                <h3>联系我</h3>
+                <div class="contact-description">
+                    <ul class="contact">
+                        <!-- Github -->
+                        <li class="item">
+                            <a href="https://github.com/ttentau" title="@imWildCat 的 Github" target="_blank">
+                                <i class="fa fa-github"></i>
+                            </a>
+                        </li>
+                        <!-- Weixin -->
+                        <li class="item">
+                            <a title="Contact me" class="winxin">
+                                <i class="fa fa-weixin"></i>
+                            </a>
+                        </li>
+                        <!-- Email -->
+                        <li class="item">
+                            <a href="mailto:ttetnau@163.com" title="Contact me">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+<!--        <div class="img-ctn">-->
+<!--            <img src="${require(`../../assets/img/project-logos.png`)}" alt="">-->
+<!--            <div class="navbar ">-->
+<!--                <nav>-->
+<!--                    <ul>-->
+<!--                        <li>-->
+<!--                            <a href="https://auto.ferrari.com/zh_CN/sports-cars-models/" target="">-->
+<!--                                <span class="text">Vue</span>-->
+<!--                            </a>-->
+<!--                            <div class="detail">-->
+<!--                                <img src="${require(`../../assets/img/vue-bg.png`)}" alt="">-->
+<!--                                <div class="list-ctn vue">-->
+<!--                                    <div class="title">Vue</div>-->
+<!--                                    <ul>-->
+<!--                                        <li>-->
+<!--                                            <div class="arrow"></div>-->
+<!--                                            <a href="www.baidu.com">阳光租赁运营后台</a>-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            <div class="arrow"></div>-->
+<!--                                            <a href="www.baidu.com">遵遗嘱管理系统</a>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <a href="https://auto.ferrari.com/zh_CN/sports-cars-models/" target="">-->
+<!--                                <span class="text">Angular</span>-->
+<!--                            </a>-->
+<!--                            <div class="detail">-->
+<!--                                <img src="${require(`../../assets/img/angular-bg.png`)}" alt="">-->
+<!--                                <div class="list-ctn">-->
+<!--                                    <div class="title">Angular</div>-->
+<!--                                    <ul>-->
+<!--                                        <li>-->
+<!--                                            <div class="arrow"></div>-->
+<!--                                            <a href="www.baidu.com">驾享租车共享平台管理系统</a>-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            <div class="arrow"></div>-->
+<!--                                            <a href="www.baidu.com">遵遗嘱管理系统</a>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <a href="https://auto.ferrari.com/zh_CN/sports-cars-models/" target="">-->
+<!--                                <span class="text">React</span>-->
+<!--                            </a>-->
+<!--                            <div class="detail">-->
+<!--                                <img src="${require(`../../assets/img/react-bg.png`)}" alt="">-->
+<!--                                <div class="list-ctn">-->
+<!--                                    <div class="title">React</div>-->
+<!--                                    <ul>-->
+<!--                                        <li>-->
+<!--                                            <div class="arrow"></div>-->
+<!--                                            <a href="www.baidu.com">react-admin</a>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <a href="https://auto.ferrari.com/zh_CN/sports-cars-models/" target="">-->
+<!--                                <span class="text">Ionic</span>-->
+<!--                            </a>-->
+<!--                            <div class="detail ">-->
+<!--                                <img src="${require(`../../assets/img/ionic-bg.png`)}" alt="">-->
+<!--                                <div class="list-ctn ionic">-->
+<!--                                    <div class="title">Ionic</div>-->
+<!--                                    <ul>-->
+<!--                                        <li>-->
+<!--                                            <div class="arrow"></div>-->
+<!--                                            <a href="www.baidu.com">W婚车App</a>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <a href="https://auto.ferrari.com/zh_CN/sports-cars-models/" target="">-->
+<!--                                <span class="text">小程序</span>-->
+<!--                            </a>-->
+<!--                            <div class="detail">-->
+<!--                                <img src="${require(`../../assets/img/mini-bg.png`)}" alt="">-->
+<!--                                <div class="list-ctn">-->
+<!--                                    <div class="title">小程序</div>-->
+<!--                                    <ul>-->
+<!--                                        <li>-->
+<!--                                            <div class="arrow"></div>-->
+<!--                                            <a href="www.baidu.com">阳光租赁实勘服务</a>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <a href="https://auto.ferrari.com/zh_CN/sports-cars-models/" target="">-->
+<!--                                <span class="text">静态网页</span>-->
+<!--                            </a>-->
+<!--                            <div class="detail">-->
+<!--                                <img src="${require(`../../assets/img/html-bg.png`)}" alt="">-->
+<!--                                <div class="list-ctn html">-->
+<!--                                    <div class="title">静态网页</div>-->
+<!--                                    <ul>-->
+<!--                                        <li>-->
+<!--                                            <div class="arrow"></div>-->
+<!--                                            <a href="www.baidu.com">实勘管理平台</a>-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            <div class="arrow"></div>-->
+<!--                                            <a href="https://www.jxzuche.cn/">驾享租车官网</a>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </nav>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <section>-->
+<!--            <div class="project-cnt">-->
+<!--                <div class="project-summary">-->
+<!--                    <div class="project1 project">-->
+<!--                        <img src="${require(`../../assets/img/about/project1.png`)}" alt="">-->
+<!--                        <a class="description" target="_self"-->
+<!--                           href="https://musei.ferrari.com/en/modena/current-exhibitions">-->
+<!--                            <div class="description-header">-->
+<!--                                <h3>W婚车 App（Ionic）</h3>-->
+<!--                                <p>-->
+<!--                                    车主抢单、接单-->
+<!--                                    <br>地图描点-->
+<!--                                </p>-->
+<!--                            </div>-->
+<!--                            <span class="link link-white">-->
+<!--                                <i class="icon-play"></i>-->
+<!--                                了解详情-->
+<!--                            </span>-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                    <div class="project2 project">-->
+<!--                        <img src="${require(`../../assets/img/about/project2.png`)}" alt="">-->
+<!--                        <a class="description" target="_self"-->
+<!--                           href="https://musei.ferrari.com/en/modena/current-exhibitions">-->
+<!--                            <div class="description-header">-->
+<!--                                <h3>阳光租赁运营后台（Vue）</h3>-->
+<!--                                <p>-->
+<!--                                    房源的审核、上架、预热、勘测-->
+<!--                                    <br>房源招租、推广制作-->
+<!--                                    <br>人员与机构的管理-->
+<!--                                    <br>其他端CMS内容管理-->
+<!--                                </p>-->
+<!--                            </div>-->
+<!--                            <span class="link link-white">-->
+<!--                                <i class="icon-play"></i>-->
+<!--                                了解详情-->
+<!--                            </span>-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                    <div class="project3 project">-->
+<!--                        <img src="${require(`../../assets/img/project.jpg`)}" alt="">-->
+<!--                        <a class="description" target="_self"-->
+<!--                           href="https://musei.ferrari.com/en/modena/current-exhibitions">-->
+<!--                            <div class="description-header">-->
+<!--                                <h3>遵遗嘱管理系统（Vue）</h3>-->
+<!--                                <p>-->
+<!--                                    医生创建临床试验为病人制定服药计划-->
+<!--                                    <br>统计、查看病人的服药情况-->
+<!--                                </p>-->
+<!--                            </div>-->
+<!--                            <span class="link link-white">-->
+<!--                                <i class="icon-play"></i>-->
+<!--                                了解详情-->
+<!--                            </span>-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                    <div class="project4 project">-->
+<!--                        <img src="${require(`../../assets/img/project.jpg`)}" alt="">-->
+<!--                        <a class="description" target="_self"-->
+<!--                           href="https://musei.ferrari.com/en/modena/current-exhibitions">-->
+<!--                            <div class="description-header">-->
+<!--                                <h3>驾享租车共享平台管理系统（Angular4）</h3>-->
+<!--                                <p>-->
+<!--                                    车辆管理、订单管理、人员管理、账务管理-->
+<!--                                </p>-->
+<!--                            </div>-->
+<!--                            <span class="link link-white">-->
+<!--                                <i class="icon-play"></i>-->
+<!--                                了解详情-->
+<!--                            </span>-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                    <div class="project5 project">-->
+<!--                        <img src="${require(`../../assets/img/project.jpg`)}" alt="">-->
+<!--                        <a class="description" target="_self"-->
+<!--                           href="https://www.jxzuche.cn/">-->
+<!--                            <div class="description-header">-->
+<!--                                <h3>阳光租赁实勘服务（小程序）</h3>-->
+<!--                                <p>-->
+<!--                                    第三方勘测机构抢到房源后-->
+<!--                                    <br>实地查看房源信息-->
+<!--                                    <br>并录入上传-->
+<!--                                </p>-->
+<!--                            </div>-->
+<!--                            <span class="link link-white">-->
+<!--                                <i class="icon-play"></i>-->
+<!--                                了解详情-->
+<!--                            </span>-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                    <div class="project6 project">-->
+<!--                        <img src="${require(`../../assets/img/about/project6.png`)}" alt="">-->
+<!--                        <a class="description" target="_self"-->
+<!--                           href="https://www.jxzuche.cn/">-->
+<!--                            <div class="description-header">-->
+<!--                                <h3>驾享租车官网（静态页面）</h3>-->
+<!--                            </div>-->
+<!--                            <span class="link link-white">-->
+<!--                                <i class="icon-play"></i>-->
+<!--                                了解详情-->
+<!--                            </span>-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                    <div class="project7 project">-->
+<!--                        <img src="${require(`../../assets/img/project.jpg`)}" alt="">-->
+<!--                        <a class="description" target="_self"-->
+<!--                           href="https://musei.ferrari.com/en/modena/current-exhibitions">-->
+<!--                            <div class="description-header">-->
+<!--                                <h3>实勘管理平台（静态页面）</h3>-->
+<!--                                <p>-->
+<!--                                    负责房源的实地勘测-->
+<!--                                    <br>-->
+<!--                                    管理第三方勘测机构、人员-->
+<!--                                </p>-->
+<!--                            </div>-->
+<!--                            <span class="link link-white">-->
+<!--                                <i class="icon-play"></i>-->
+<!--                                了解详情-->
+<!--                            </span>-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </section>-->
+    </div>
+</div>
+</body>
+</html>
