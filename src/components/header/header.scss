@@ -22,6 +22,9 @@ header {
         font-weight: bold;
         cursor: pointer;
         transition: all .3s;
+        color: #2d374b;
+        text-decoration: none;
+
 
         &:hover {
           transform: scale(1.05);
@@ -64,6 +67,7 @@ header {
             position: relative;
             display: inline-block;
             transition: all .5s;
+            text-decoration: none;
 
 
             &::before {
