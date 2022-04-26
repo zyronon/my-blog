@@ -1,12 +1,15 @@
-$hover-color: #ff634c;
-$main-bg-color: #7db9de;
-$container-width: 1260px;
+@import "normalize.min.css";
+@import "~animate.css/animate.min.css";
+
+@hover-color: #ff634c;
+@main-bg-color: #7db9de;
+@container-width: 1260px;
 html, body {
   font-size: 62.5%;
   margin: 0;
   padding: 0;
   //background: #f1f1f1;
-  background: $main-bg-color;
+  background: @main-bg-color;
 }
 
 ul, li, h1, h2, h3, h4, h5, h6 {
@@ -26,9 +29,9 @@ p {
 }
 
 .c-black {
-  color: black!important;
+  color: black !important;
 }
 
 .c-white {
-  color: white!important;
+  color: white !important;
 }

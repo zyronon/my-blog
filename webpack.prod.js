@@ -24,12 +24,12 @@ module.exports = merge(common, {
     module: {
         rules: [
             {
-                test: /\.(sa|sc|c)ss$/,
+                test: /\.(le|c)ss$/,
                 use: [
                     //提取css到单个文件
                     MiniCssExtractPlugin.loader,//热更新功能不行。
                     'css-loader',
-                    'sass-loader'
+                    'less-loader'
                 ],
                 include: path.join(__dirname, 'src'),
                 exclude: /node_modules/,

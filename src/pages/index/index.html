@@ -1,53 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-
-    <link rel="icon" href="http://blogapi.ttentau.top/static/uploads/images/favicon.ico">
-    <title>TTentau的博客</title>
-    <title><%= htmlWebpackPlugin.options.title %></title>
+  <meta charset="UTF-8">
+  <link rel="icon" href="http://blogapi.ttentau.top/static/uploads/images/favicon.ico">
+  <script crossorigin="anonymous" integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh"
+          src="https://lib.baomitu.com/jquery/3.4.1/jquery.min.js"></script>
+  <title><%= htmlWebpackPlugin.options.title %></title>
 </head>
 <body>
 <div class="body-ctn" id="app">
-    ${require('html-loader!../../components/header/header.html')}
-    <section>
-        <div class="border-decorate-a">
-            <div class="border-decorate-b">
-                <div class="border-decorate-c">
-                    <h2 class="notice">博客文章</h2>
-                    <div class="post-wrapper">
-                        <ul class="post-list" id="post-list">
-                            <li v-for="item of articles" class="post-list-item">
-                                <article id="post-你不需要jQuery" class="">
-                                    <h3 class="post-title">
-                                        <a :href="'/article.html?id='+item.id">{{item.title}}</a>
-                                    </h3>
-                                    <div class="post-content">
-                                        {{item.summary}}
-                                    </div>
-                                    <div class="post-footer">
-                                        <ul class="article-tag-list">
-                                            <li class="article-tag-list-item" v-for="tag of item.tags"
-                                                style="background: rgb(236, 209, 137);">
-                                                <a class="article-tag-list-link">{{tag.name}}</a>
-                                            </li>
-                                        </ul>
-                                        <div class="post-meta">
-                                            <time class="post-time">{{item.updateTime|date}}
-                                            </time>
-                                        </div>
-                                    </div>
-                                </article>
-                            </li>
-                        </ul>
+  ${require('../../components/header/header.html')}
+  <section>
+    <div class="border-decorate-a">
+      <div class="border-decorate-b">
+        <div class="border-decorate-c">
+          <h2 class="notice">博客文章</h2>
+          <div class="post-wrapper">
+            <ul class="post-list" id="post-list">
+              <li v-for="item of articles" class="post-list-item">
+                <article id="post-你不需要jQuery" class="">
+                  <h3 class="post-title">
+                    <a :href="'/article.html?id='+item.id">{{ item.title }}</a>
+                  </h3>
+                  <div class="post-content">
+                    {{ item.summary }}
+                  </div>
+                  <div class="post-footer">
+                    <ul class="article-tag-list">
+                      <li class="article-tag-list-item" v-for="tag of item.tags"
+                          style="background: rgb(236, 209, 137);">
+                        <a class="article-tag-list-link">{{ tag.name }}</a>
+                      </li>
+                    </ul>
+                    <div class="post-meta">
+                      <time class="post-time">{{ date(item.updateTime) }}
+                      </time>
                     </div>
-                </div>
-            </div>
+                  </div>
+                </article>
+              </li>
+            </ul>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 </div>
 </body>
 </html>
-<script>
-
-</script>
