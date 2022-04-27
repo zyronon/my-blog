@@ -1,0 +1,89 @@
+@import "../../assets/css/index";
+
+header {
+  height: 80px;
+  background: #f1f1f1;
+
+  .header-ctn {
+    height: 100%;
+    margin: 0 auto;
+    width: $container-width;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .blog {
+      display: flex;
+      align-items: flex-end;
+
+      .name {
+        margin-right: 10px;
+        font-size: 26px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all .3s;
+        color: #2d374b;
+        text-decoration: none;
+
+
+        &:hover {
+          transform: scale(1.05);
+          color: $hover-color;
+        }
+      }
+
+      .signature {
+        span {
+          float: left;
+          display: inline-block;
+        }
+
+        font-size: 10px;
+      }
+    }
+
+    nav {
+      ul {
+        display: flex;
+
+        li {
+          width: 100px;
+          text-align: right;
+          cursor: pointer;
+          overflow: hidden;
+
+          &:hover {
+            a {
+              color: $hover-color;
+              transform: translateY(-100%);
+            }
+
+          }
+
+          a {
+            height: 25px;
+            font-size: 1.8rem;
+            color: #2d374b;
+            position: relative;
+            display: inline-block;
+            transition: all .5s;
+            text-decoration: none;
+
+
+            &::before {
+              content: attr(data-hover);
+              position: absolute;
+              top: 100%;
+            }
+
+            &.active {
+              color: $hover-color;
+              transform: translateY(-100%);
+            }
+          }
+
+        }
+      }
+    }
+  }
+}
