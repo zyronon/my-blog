@@ -1,4 +1,4 @@
-@import "../../assets/scss/index";
+@import (reference) "../../assets/scss/index";
 @import "../../assets/scss/markdown.css";
 
 body, html {
@@ -118,7 +118,6 @@ body, html {
 
       .title {
         font-size: 3rem;
-        opacity: .6;
       }
 
       .date {
@@ -133,7 +132,8 @@ body, html {
   }
 
   .page {
-    display: flex;
+    //display: flex;
+    display: none;
     justify-content: space-between;
     align-items: center;
     height: 8rem;

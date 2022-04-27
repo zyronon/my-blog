@@ -1,5 +1,5 @@
-import './header.less'
 import './header.html'
+import './header.less'
 
 if (document.readyState !== 'loading') {
   onload()

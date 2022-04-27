@@ -1,10 +1,14 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
+const webpack = require("webpack");
 
 module.exports = {
   entry: {
     index: './src/pages/index/index.js',
+    about: './src/pages/about/about.js',
+    article: './src/pages/article/article.js',
+    archive: './src/pages/archive/archive.js',
   },
   output: {
     filename: './js/[name].[hash].js',//生成的js文件名
@@ -13,15 +17,43 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),//清除dist目录多余文件
-    // new ProvidePlugin({
-    //   _: 'lodash'
-    // }),
+    new webpack.ProvidePlugin({
+      Vue: 'vue/dist/vue.esm-bundler'
+    }),
     new HtmlWebpackPlugin({
       //生成index.html并自动导入js文件
-      title: 'TTentau的博客',
+      title: '首页',
       filename: 'index.html',
       template: './src/pages/index/index.html',
       chunks: ['index'],
+      minify: true
+    }),
+    // new HtmlWebpackPlugin({
+    //   title: '项目',
+    //   filename: "project.html",
+    //   template: './src/pages/project/project.html',
+    //   chunks: ['project'],
+    //   minify: true
+    // }),
+    new HtmlWebpackPlugin({
+      title: '文章详情',
+      filename: "article.html",
+      template: './src/pages/article/article.html',
+      chunks: ['article'],
+      minify: true
+    }),
+    new HtmlWebpackPlugin({
+      title: '归档',
+      filename: "archive.html",
+      template: './src/pages/archive/archive.html',
+      chunks: ['archive'],
+      minify: true
+    }),
+    new HtmlWebpackPlugin({
+      title: '关于我',
+      filename: "about.html",
+      template: './src/pages/about/about.html',
+      chunks: ['about'],
       minify: true
     }),
   ],

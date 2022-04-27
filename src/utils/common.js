@@ -1,4 +1,5 @@
 export function dateFormat(val, fmt) {
+  if (!val) return ''
   let date = new Date(val)
   var o = {
     "M+": date.getMonth() + 1,                 //月份
@@ -22,17 +23,18 @@ export function dateFormat(val, fmt) {
 
 export function http(url, methods = 'get') {
   return new Promise((resolve, reject) => {
-    let ajax = new XMLHttpRequest();
-    ajax.onreadystatechange = () => {
-      if (ajax.readyState === XMLHttpRequest.DONE) {
-        if (ajax.status === 200) {
-          resolve([true, JSON.parse(ajax.responseText)]);
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          resolve([true, JSON.parse(xhr.responseText)]);
         } else {
           resolve([false]);
         }
       }
     }
-    ajax.open(methods, url)
-    ajax.send()
+    xhr.open(methods, url)
+    xhr.setRequestHeader('Content-type', 'application/json')
+    xhr.send()
   })
 }

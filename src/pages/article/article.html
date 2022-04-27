@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <link rel="icon" href="http://blogapi.ttentau.top/static/uploads/images/favicon.ico">
-  <title><%= htmlWebpackPlugin.options.title %></title>
+  <title>详情</title>
 </head>
 <body>
 <div class="body-ctn">
-  ${require('html-loader!../../components/header/header.html')}
+  ${require('../../components/header/header.html')}
   <div class="container" id="article">
     <div class="wrapper">
       <nav class="navigation">
@@ -16,7 +16,7 @@
           <li class="navigation-item ">
             <a class="navigation-item-link" href="/">
               <svg class="icon" fill="rgba(160,160,160,1)" viewBox="0 0 1024 1024" version="1.1"
-                   xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                   xmlns="http://www.w3.org/2000/svg"
                    width="200"
                    height="200">
                 <defs>
@@ -31,7 +31,7 @@
           <li class="navigation-item">
             <a class="navigation-item-link" href="/about.html">
               <svg class="icon" fill="rgba(160,160,160,1)" viewBox="0 0 1024 1024" version="1.1"
-                   xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                   xmlns="http://www.w3.org/2000/svg"
                    width="200"
                    height="200">
                 <defs></defs>
@@ -46,7 +46,7 @@
           <li class="navigation-item">
             <a class="navigation-item-link" href="/archive.html">
               <svg class="icon" fill="rgba(160,160,160,1)" viewBox="0 0 1110 1024" version="1.1"
-                   xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                   xmlns="http://www.w3.org/2000/svg"
                    width="216.796875"
                    height="200">
                 <defs>
@@ -61,7 +61,7 @@
           <li class="navigation-item">
             <a class="navigation-item-link" href="/links.html">
               <svg class="icon" fill="rgba(160,160,160,1)" viewBox="0 0 1024 1024" version="1.1"
-                   xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                   xmlns="http://www.w3.org/2000/svg"
                    width="200"
                    height="200">
                 <defs>
@@ -76,7 +76,7 @@
           <li class="navigation-item">
             <a class="navigation-item-link" href="/guestbook.html">
               <svg class="icon" fill="rgba(160,160,160,1)" viewBox="0 0 1024 1024" version="1.1"
-                   xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                   xmlns="http://www.w3.org/2000/svg"
                    width="200"
                    height="200">
                 <defs>
@@ -93,23 +93,23 @@
       <article>
         <header>
           <div class="title">
-            {{article.title}}
+            {{ article.title }}
           </div>
           <div class="date-ctn">
-            <span class="date">{{article.updateTime|date}}</span>
+            <span class="date">{{ date(article.updateTime) }}</span>
           </div>
         </header>
         <section class="content" :class="article.isMarkdownEditor?'markdown-body':''"
                  v-html="article.htmlContent"></section>
       </article>
-      <!--            <div class="page">-->
-      <!--                <div class="previous">-->
-      <!--                    这是上一页-->
-      <!--                </div>-->
-      <!--                <div class="next">-->
-      <!--                    这是下一页-->
-      <!--                </div>-->
-      <!--            </div>-->
+      <div class="page">
+        <div class="previous">
+          上一页
+        </div>
+        <div class="next">
+          下一页
+        </div>
+      </div>
     </div>
   </div>
 </div>
