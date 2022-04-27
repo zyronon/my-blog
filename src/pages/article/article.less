@@ -1,10 +1,9 @@
 @import "../../assets/scss/index";
-@import "../../assets/scss/markdown.scss";
+@import "../../assets/scss/markdown.css";
 
 body, html {
   height: 100%;
-  background: $main-bg-color !important;
-
+  background: @main-bg-color !important;
 }
 
 .body-ctn {
@@ -99,7 +98,7 @@ body, html {
   }
 
   .wrapper {
-    width: $container-width;
+    width: @container-width;
   }
 
   article {
@@ -140,7 +139,7 @@ body, html {
     height: 8rem;
     margin-bottom: 30px;
 
-    $anim-duration: .5s;
+    @anim-duration: .5s;
 
     .previous {
       border-radius: 4px;
@@ -150,7 +149,7 @@ body, html {
       display: flex;
       justify-content: center;
       align-items: center;
-      transition: all $anim-duration;
+      transition: all @anim-duration;
 
       &:hover {
         color: white;
@@ -160,7 +159,7 @@ body, html {
 
     .next {
       border-radius: 4px;
-      transition: all $anim-duration;
+      transition: all @anim-duration;
       color: white;
       width: 40%;
       background: darkgray;

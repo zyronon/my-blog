@@ -1,4 +1,4 @@
-import './header.scss'
+import './header.less'
 require('html-loader!./header.html')//导入html，不然不会热更新。
 
 if (document.readyState !== 'loading') {

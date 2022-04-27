@@ -1,4 +1,4 @@
-import './project.scss'
+import './project.less'
 // import './project.html' //导入html，不然不会热更新
 require('html-loader!./project.html')//导入html，不然不会热更新。注释掉上面的语法是因为，去年了webpack.config.js里面的html-loader的配置。
 

@@ -7,7 +7,7 @@ header {
   .header-ctn {
     height: 100%;
     margin: 0 auto;
-    width: $container-width;
+    width: @container-width;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -28,7 +28,7 @@ header {
 
         &:hover {
           transform: scale(1.05);
-          color: $hover-color;
+          color: @hover-color;
         }
       }
 
@@ -54,7 +54,7 @@ header {
 
           &:hover {
             a {
-              color: $hover-color;
+              color: @hover-color;
               transform: translateY(-100%);
             }
 
@@ -76,7 +76,7 @@ header {
               top: 100%;
             }
             &.active{
-              color: $hover-color;
+              color: @hover-color;
               transform: translateY(-100%);
             }
           }
