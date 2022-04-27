@@ -386,11 +386,11 @@
     }
 </script>
 
-<style lang="scss" scoped>
-    @import "../../assets/scss/color.scss";
+<style lang="less" scoped>
+    @import "../../assets/scss/color.less";
 
     .login {
-        background: $bg-color;
+        background: @bg-color;
         height: 100%;
         width: 100%;
         display: flex;
@@ -414,7 +414,7 @@
 
             .logo-body {
                 height: 100%;
-                background: $main-color;
+                background: @main-color;
                 display: flex;
                 justify-content: center;
                 align-items: center;

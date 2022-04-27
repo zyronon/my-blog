@@ -74,8 +74,8 @@
         },
     }
 </script>
-<style scoped lang='scss'>
-    @import "../../assets/scss/color.scss";
+<style scoped lang='less'>
+    @import "../../assets/scss/color.less";
 
     .drag {
         position: relative;

@@ -69,7 +69,7 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
     .messages {
         /*overflow: auto;*/
         /*height: 100%;*/

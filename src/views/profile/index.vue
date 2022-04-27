@@ -140,11 +140,11 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
     @import '../../assets/scss/color';
 
-    $title-color: #464646;
-    $title-sub: #8c8c8c;
+    @title-color: #464646;
+    @title-sub: #8c8c8c;
 
     .profile-container {
         .el-card {
@@ -189,11 +189,11 @@
                 .title {
                     font-size: 18px;
                     font-weight: bold;
-                    color: $title-color;
+                    color: @title-color;
 
                     span {
                         cursor: pointer;
-                        color: $main-color;
+                        color: @main-color;
 
                         &:hover {
                             text-decoration-line: underline;
@@ -203,7 +203,7 @@
 
                 .sub {
                     margin-top: 20px;
-                    color: $title-sub;
+                    color: @title-sub;
                     font-size: 14px;
                 }
 

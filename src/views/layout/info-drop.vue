@@ -72,7 +72,7 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
     .inline-block-box {
         display: inline-block;
         vertical-align: middle;

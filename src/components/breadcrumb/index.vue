@@ -54,7 +54,7 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="less">
     .breadcrumb-enter-active,
     .breadcrumb-leave-active {
         transition: all .5s;

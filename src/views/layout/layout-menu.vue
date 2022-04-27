@@ -115,7 +115,7 @@
     }
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="less">
     .is-active {
         background: #20a8d8 !important;
     }

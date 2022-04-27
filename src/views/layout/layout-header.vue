@@ -57,7 +57,7 @@
     }
 </script>
 
-<style scoped lang='scss'>
+<style scoped lang="less">
     .header {
         display: flex;
         align-items: center;

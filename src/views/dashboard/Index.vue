@@ -118,7 +118,7 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
     .dashboard-ctn {
         .header {
             margin-bottom: 20px;
