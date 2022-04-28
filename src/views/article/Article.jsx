@@ -3,6 +3,8 @@ import Header from "../../components/header/Header";
 import {useState, useEffect} from "react";
 import {dateFormat, http} from "../../utils/common";
 import config from "../../config";
+import Loading from "../../components/loading/Loading";
+
 
 export default function Article() {
   let [article, setArticle] = useState({})
@@ -22,7 +24,6 @@ export default function Article() {
     getData()
   }, [])
 
-
   return (
     <div id="article">
       <Header/>
@@ -35,12 +36,14 @@ export default function Article() {
             <span className="date">{date(article.updateTime)}</span>
           </div>
         </div>
-        <section
-          className={article.isMarkdownEditor ? 'content markdown-body' : 'content'}
-          dangerouslySetInnerHTML={{__html: article.htmlContent}}
-        />
+        <Loading show={!article.isMarkdownEditor}>
+          <section
+            className={article.isMarkdownEditor ? 'markdown-body' : ''}
+            dangerouslySetInnerHTML={{__html: article.htmlContent}}
+          >
+          </section>
+        </Loading>
       </div>
-
     </div>
   )
 }

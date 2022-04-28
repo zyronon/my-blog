@@ -69,6 +69,8 @@ $border-radius: 5px;
           }
 
           .archive {
+            min-height: calc(100vh - 35rem);
+
             .archive-list {
               .archive-item {
                 margin: 20px 0;

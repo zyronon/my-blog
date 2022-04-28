@@ -82,14 +82,15 @@
   }
 
   .wrapper {
-    margin: 60px auto;
+    margin: 4rem auto 6rem auto;
     width: $container-width;
+    //width: $container-width + 2vw;
 
     .header {
-      border-radius: 0 10px 0 0;
-      padding: 30px 80px;
+      min-height: 3.5rem;
+      border-radius: 0 1rem 0 0;
+      padding: 3rem 8rem;
       border-left: 4px solid gray;
-      height: 4rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -97,17 +98,22 @@
 
       .title {
         font-size: 3rem;
+        width: 80%;
+        letter-spacing: .4rem;
       }
 
       .date {
+        font-size: 1.6rem;
         opacity: .5;
+        letter-spacing: .2rem;
       }
     }
 
-    .content {
-      border-radius: 0 0 10px 10px;
+    section {
+      min-height: calc(100vh - 35rem);
+      border-radius: 0 0 1rem 1rem;
       background: white;
-      padding: 30px 80px;
+      padding: 3rem 8rem;
       line-height: 3rem;
     }
   }
