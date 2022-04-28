@@ -4,142 +4,101 @@ $bottom: 10px;
 $right: 10px;
 $border-radius: 5px;
 #home {
-  section {
-    margin: 60px auto;
-    width: $container-width;
-    //overflow: hidden;
+  .notice {
+    font-size: 20px;
+    line-height: 40px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+    font-weight: 600;
+    position: relative;
+    margin-bottom: 10px !important;
+    cursor: pointer;
 
-    .border-decorate-a {
-      margin-top: 10px;
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: $border-radius;
-      border-right: 1px solid #e6e6e6;
-      border-bottom: 1px solid #e6e6e6;
-      width: 100%;
-      position: relative;
+    &::after {
+      content: "";
+      display: block;
+      border-bottom: 2px solid #2a2a2a;
+      width: 100px;
+      -webkit-transition: width .3s linear;
+      transition: width .3s linear;
+    }
 
-      .border-decorate-b {
-        background: rgba(255, 255, 255, 0.9);
-        border-right: 1px solid #e6e6e6;
-        border-bottom: 1px solid #e6e6e6;
-        border-radius: $border-radius;
-        position: relative;
-        bottom: $bottom;
-        right: $right;
-        width: 100%;
+    &:hover {
+      &::after {
+        width: 120px;
+      }
+    }
+  }
 
-        .border-decorate-c {
-          //background: #ffffff;
-          background: #f1f1f1f1;
-          border-radius: $border-radius;
-          border-right: 1px solid #e6e6e6;
-          border-bottom: 1px solid #e6e6e6;
-          padding: 20px 30px;
-          box-sizing: border-box;
-          position: relative;
-          bottom: $bottom;
-          right: $right;
-          width: 100%;
+  .post-wrapper {
+    margin: 30px auto;
+    //width: 50%;
 
-          .notice {
-            font-size: 20px;
-            line-height: 40px;
-            border-bottom: 1px solid #eee;
+    .post-list {
+      font-size: 1.5rem;
+
+      .post-list-item {
+        margin-bottom: 30px;
+        border-radius: 8px;
+        background: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px 10px #efefef;
+
+        .post-title {
+          margin-bottom: 20px;
+          font-size: 3rem;
+          font-weight: lighter;
+
+          a {
+            display: inline-block;
             color: #333;
-            font-weight: 600;
-            position: relative;
-            margin-bottom: 10px !important;
-            cursor: pointer;
-
-            &::after {
-              content: "";
-              display: block;
-              border-bottom: 2px solid #2a2a2a;
-              width: 100px;
-              -webkit-transition: width .3s linear;
-              transition: width .3s linear;
-            }
+            text-decoration: none;
+            text-shadow: #452d2d 0 0 1px, #fffffb 0 0 1px, #fffffb 0 0 2px;
+            letter-spacing: 4px;
+            font-weight: 300;
+            font-size: 120%;
+            //font-family: Comic Sans MS, Helvetica Neue, Microsoft Yahei, -apple-system, sans-serif;
+            //transition: all .5s;
 
             &:hover {
-              &::after {
-                width: 120px;
+              transform: scale(1.02);
+              color: $hover-color;
+            }
+          }
+        }
+
+        .post-content {
+          margin: 20px 0;
+        }
+
+        .post-footer {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+
+          .article-tag-list {
+            font-size: 1rem;
+
+            .article-tag-list-item {
+              margin-right: 10px;
+              padding: 7px 12px;
+              background: #dddddc;
+              display: inline-block;
+              border-radius: 2px;
+              //transition: all .3s;
+
+              &:hover {
+                transform: scale(1.15);
+              }
+
+              a {
               }
             }
           }
 
-          .post-wrapper {
-            margin: 30px auto;
-            //width: 50%;
-
-            .post-list {
-              font-size: 1.5rem;
-
-              .post-list-item {
-                margin-bottom: 30px;
-                border-radius: 8px;
-                background: #fff;
-                padding: 20px;
-                box-shadow: 0 0 10px 10px #efefef;
-
-                .post-title {
-                  margin-bottom: 20px;
-                  font-size: 3rem;
-                  font-weight: lighter;
-
-                  a {
-                    display: inline-block;
-                    color: #333;
-                    text-decoration: none;
-                    text-shadow: #452d2d 0 0 1px, #fffffb 0 0 1px, #fffffb 0 0 2px;
-                    letter-spacing: 4px;
-                    font-weight: 300;
-                    font-size: 120%;
-                    //font-family: Comic Sans MS, Helvetica Neue, Microsoft Yahei, -apple-system, sans-serif;
-                    //transition: all .5s;
-
-                    &:hover {
-                      transform: scale(1.02);
-                      color: $hover-color;
-                    }
-                  }
-                }
-
-                .post-content {
-                  margin: 20px 0;
-                }
-
-                .post-footer {
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: flex-end;
-
-                  .article-tag-list {
-                    font-size: 1rem;
-
-                    .article-tag-list-item {
-                      margin-right: 10px;
-                      padding: 7px 12px;
-                      background: #dddddc;
-                      display: inline-block;
-                      border-radius: 2px;
-                      //transition: all .3s;
-
-                      &:hover {
-                        transform: scale(1.15);
-                      }
-
-                      a {
-                      }
-                    }
-                  }
-
-                  .post-meta {
-                    font-size: 1.4rem;
-                    color: #999;
-                  }
-                }
-              }
-            }
+          .post-meta {
+            font-size: 1.4rem;
+            color: #999;
           }
         }
       }

@@ -1,4 +1,4 @@
-import Header from "../../components/header/header";
+import Header from "../../components/header/Header";
 import './About.scss'
 import bg from '../../assets/img/about-me-bg.jpg'
 

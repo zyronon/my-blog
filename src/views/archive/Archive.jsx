@@ -1,9 +1,10 @@
 import './Archive.scss'
-import Header from "../../components/header/header";
+import Header from "../../components/header/Header";
 import {useState, useEffect} from "react";
 import {dateFormat, http} from "../../utils/common";
 import config from "../../config";
 import {Link} from "react-router-dom";
+import Wrapper from "../../components/wrapper/Wrapper";
 
 export default function Archive() {
   let [list, setList] = useState([])
@@ -27,33 +28,27 @@ export default function Archive() {
   return (
     <div id='archive'>
       <Header/>
-      <div className="container">
-        <div className="border-decorate-a">
-          <div className="border-decorate-b">
-            <div className="border-decorate-c">
-              <h2 className="notice">归档</h2>
-              <div className="archive">
-                <ul className="archive-list">
-                  {Object.keys(list).map((key, index) => {
-                    return (
-                      <li className="archive-item" key={index}>
-                        <div className="year">{key.substr(1)}</div>
-                        <ul className="article-list">
-                          {list[key].map((article) => {
-                            return (<li className="article-item" key={article.id}>
-                              <div className="date">{date(article.updateTime, 'MM-dd')}</div>
-                              <Link className="article" to={'/article?id=' + article.id}>{article.title}</Link>
-                            </li>)
-                          })}
-                        </ul>
+      <Wrapper>
+        <h2 className="notice">归档</h2>
+        <div className="archive">
+          <ul className="archive-list">
+            {Object.keys(list).map((key, index) => {
+              return (
+                <li className="archive-item" key={index}>
+                  <div className="year">{key.substr(1)}</div>
+                  <ul className="article-list">
+                    {list[key].map((article) => {
+                      return (<li className="article-item" key={article.id}>
+                        <div className="date">{date(article.updateTime, 'MM-dd')}</div>
+                        <Link className="article" to={'/article?id=' + article.id}>{article.title}</Link>
                       </li>)
-                  })}
-                </ul>
-              </div>
-            </div>
-          </div>
+                    })}
+                  </ul>
+                </li>)
+            })}
+          </ul>
         </div>
-      </div>
+      </Wrapper>
     </div>
   )
 }
