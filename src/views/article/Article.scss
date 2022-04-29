@@ -89,8 +89,8 @@
     .header {
       min-height: 3.5rem;
       border-radius: 0 1rem 0 0;
-      padding: 3rem 8rem;
-      border-left: 4px solid gray;
+      padding: 3rem 5rem;
+      border-left: 6px solid gray;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -113,7 +113,7 @@
       min-height: calc(100vh - 35rem);
       border-radius: 0 0 1rem 1rem;
       background: white;
-      padding: 3rem 8rem;
+      padding: 3rem 5rem;
       line-height: 3rem;
     }
   }
@@ -159,6 +159,22 @@
         background: white;
         color: black;
       }
+    }
+  }
+
+  .go-top {
+    cursor: pointer;
+    position: fixed;
+    right: 10rem;
+    bottom: 10rem;
+    padding: .5rem .3rem;
+    background: #9d9d9d;
+    border-radius: .4rem;
+
+    svg {
+      $width: 3rem;
+      height: $width + 1rem;
+      width: $width;
     }
   }
 }
