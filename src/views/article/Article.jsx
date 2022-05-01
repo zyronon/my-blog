@@ -4,14 +4,16 @@ import {useState, useEffect} from "react";
 import {dateFormat, http} from "../../utils/common";
 import config from "../../config";
 import Loading from "../../components/loading/Loading";
-
+import dayjs from "dayjs";
 
 export default function Article() {
   let [article, setArticle] = useState({})
   let [showTop, setShowTop] = useState(false)
+  let [treeOutlines, setTreeOutlines] = useState([])
 
-  function date(v, type = 'yyyy-MM-dd') {
-    return dateFormat(v * 1000, type)
+  function date(v, type = 'YYYY-MM-DD') {
+    if (!v) return ''
+    return dayjs.unix(v).format(type)
   }
 
   async function getData() {
@@ -25,6 +27,28 @@ export default function Article() {
     getData()
     window.onscroll = onScroll
   }, [])
+
+  useEffect(() => {
+    setTreeOutlines([])
+    let hs = document.querySelector('#article').querySelectorAll('h1,h2,h3,h4,h5,h6')
+    console.log(hs)
+    let tree = []
+    hs.forEach(v => {
+      let tag = v.tagName.replace('H', '')
+      let id = v.textContent
+      if (v.children) {
+        if (v.children.length === 1) {
+          id = v.children[0].id
+        }
+      }
+      tree.push({
+        indent: tag,
+        id,
+        title: v.textContent
+      })
+    })
+    setTreeOutlines(tree)
+  }, [article])
 
 
   function onScroll() {
@@ -40,6 +64,13 @@ export default function Article() {
     }
   }
 
+  function moreThan(day = 30) {
+    let create = dayjs.unix(article.createTime)
+    let update = dayjs.unix(article.updateTime)
+    create = create.add(day, 'day')
+    return update.isAfter(create)
+  }
+
 
   return (
     <div id="article">
@@ -50,9 +81,17 @@ export default function Article() {
             {article.title}
           </div>
           <div className="date-ctn">
-            <span className="date">{date(article.updateTime)}</span>
+            <div className="date">{date(article.createTime)}</div>
           </div>
         </div>
+        {
+          moreThan() && (
+            <div className="last-modify">
+              <div className="date">** 最后更新于：{date(article.updateTime, 'YYYY-MM-DD HH:MM')}</div>
+            </div>
+          )
+        }
+
         <Loading show={!article.isMarkdownEditor}>
           <section
             className={article.isMarkdownEditor ? 'markdown-body' : ''}
@@ -72,6 +111,20 @@ export default function Article() {
             </svg>
           </div>
         }
+        <div id="outline">
+          <div className="outline-header">目录</div>
+          <div className="list">
+            {
+              treeOutlines.map((v, i) => {
+                return (
+                  <div className={'item'} key={i}>
+                    <a href={'#' + v.id} className={'indent' + v.indent}>{v.title}</a>
+                  </div>
+                )
+              })
+            }
+          </div>
+        </div>
       </div>
     </div>
   )

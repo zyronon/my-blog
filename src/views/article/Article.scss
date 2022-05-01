@@ -3,6 +3,8 @@
 @import "../../assets/css/atom-one-dark.min.css";
 
 #article {
+  font-size: 1.4rem;
+
   .navigation {
     display: none;
     position: fixed;
@@ -98,14 +100,30 @@
 
       .title {
         font-size: 3rem;
-        width: 80%;
+        width: 75%;
         letter-spacing: .4rem;
       }
 
+      .date-ctn {
+        .date {
+          line-height: 2.4rem;
+          font-size: 1.6rem;
+          opacity: .5;
+          letter-spacing: .12rem;
+        }
+      }
+    }
+
+    .last-modify {
+      padding: 1rem 5rem;
+      background: white;
+
       .date {
+        padding: 1rem;
         font-size: 1.6rem;
-        opacity: .5;
-        letter-spacing: .2rem;
+        font-weight: bold;
+        background: #e1e1e1;
+        border-radius: .3rem;
       }
     }
 
@@ -162,12 +180,62 @@
     }
   }
 
+  #outline {
+    position: fixed;
+    border-radius: .6rem;
+    width: 15vw;
+    background: white;
+    padding: 0 1rem 1rem 1rem;
+    box-sizing: border-box;
+    z-index: 9;
+    right: 6rem;
+    top: 12rem;
+    font-size: 1.6rem;
+
+    .outline-header {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid gainsboro;
+    }
+
+    .list {
+      margin-top: 1rem;
+
+      .item {
+        border-radius: .4rem;
+        padding: .8rem 1rem;
+
+        &:hover {
+          background: #f0f0f3;
+        }
+
+        a {
+          display: block;
+          box-sizing: border-box;
+          word-break: break-all;
+          width: 100%;
+          text-decoration: none; /* 去除默认的下划线 */
+          color: #000; /* 去除默认的颜色和点击后变化的颜色 */
+          $indent: 1.2rem;
+
+          &.indent2 {
+            padding-left: 2*$indent;
+
+          }
+
+          &.indent3 {
+            padding-left: 3*$indent;
+          }
+        }
+      }
+    }
+  }
+
   .go-top {
     cursor: pointer;
     position: fixed;
     right: 10rem;
     bottom: 10rem;
-    padding: .5rem .3rem;
+    padding: 0 .3rem;
     background: #9d9d9d;
     border-radius: .4rem;
 
