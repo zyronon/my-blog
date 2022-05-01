@@ -111,20 +111,24 @@ export default function Article() {
             </svg>
           </div>
         }
-        <div id="outline">
-          <div className="outline-header">目录</div>
-          <div className="list">
-            {
-              treeOutlines.map((v, i) => {
-                return (
-                  <div className={'item'} key={i}>
-                    <a href={'#' + v.id} className={'indent' + v.indent}>{v.title}</a>
-                  </div>
-                )
-              })
-            }
-          </div>
-        </div>
+        {
+          treeOutlines.length &&(
+            <div id="outline">
+              <div className="outline-header">目录</div>
+              <div className="list">
+                {
+                  treeOutlines.map((v, i) => {
+                    return (
+                      <div className={'item'} key={i}>
+                        <a href={'#' + v.id} className={'indent' + v.indent}>{v.title}</a>
+                      </div>
+                    )
+                  })
+                }
+              </div>
+            </div>
+          )
+        }
       </div>
     </div>
   )
