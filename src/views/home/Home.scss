@@ -55,7 +55,7 @@ $border-radius: 5px;
             position: absolute;
             border: $width solid transparent;
             border-bottom: $width solid $main-bg-color;
-            top: -$width;
+            top: -$width - .1rem;
             right: -$width;
             transform: rotate(45deg);
           }

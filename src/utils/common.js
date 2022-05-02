@@ -11,9 +11,14 @@ export function http(url, methods = 'get') {
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
-          resolve([true, JSON.parse(xhr.responseText)]);
+          let r = JSON.parse(xhr.responseText)
+          if (r.code === 200) {
+            resolve([true, r]);
+          } else {
+            resolve([false,r]);
+          }
         } else {
-          resolve([false]);
+          resolve([false,{}]);
         }
       }
     }

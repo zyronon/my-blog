@@ -15,6 +15,8 @@ export default function Article() {
     let [ok, res] = await http(config.apiUrl + '/v1/article/previewDetail' + location.search)
     if (ok) {
       setArticle(res.data)
+    }else {
+      alert(res.msg)
     }
   }
 

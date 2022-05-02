@@ -51,7 +51,7 @@ export default function Home() {
                           })}
                         </ul>
                         <div className="post-meta">
-                          <time className="post-time">{dateFormat(item.updateTime)}
+                          <time className="post-time">{dateFormat(item.createTime)}
                           </time>
                         </div>
                       </div>
