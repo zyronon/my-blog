@@ -44,6 +44,22 @@ $border-radius: 5px;
         background: #fff;
         padding: 20px;
         box-shadow: 0 0 10px 10px #efefef;
+        overflow: hidden;
+
+        &.top {
+          position: relative;
+
+          &::before {
+            $width: 1.5rem;
+            content: ' ';
+            position: absolute;
+            border: $width solid transparent;
+            border-bottom: $width solid $main-bg-color;
+            top: -$width;
+            right: -$width;
+            transform: rotate(45deg);
+          }
+        }
 
         .post-title {
           margin-bottom: 20px;

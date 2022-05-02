@@ -10,10 +10,6 @@ import Loading from "../../components/loading/Loading";
 export default function Archive() {
   let [list, setList] = useState({})
 
-  function date(v, type = 'yyyy-MM-dd') {
-    return dateFormat(v * 1000, type)
-  }
-
   async function getData() {
     let [ok, res] = await http(config.apiUrl + 'v1/article/archive')
     if (ok) {
@@ -41,7 +37,7 @@ export default function Archive() {
                     <ul className="article-list">
                       {list[key].map((article) => {
                         return (<li className="article-item" key={article.id}>
-                          <div className="date">{date(article.updateTime, 'MM-dd')}</div>
+                          <div className="date">{dateFormat(article.updateTime, 'MM-DD')}</div>
                           <Link className="article" to={'/article?id=' + article.id}>{article.title}</Link>
                         </li>)
                       })}

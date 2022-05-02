@@ -11,10 +11,6 @@ export default function Home() {
 
   let [articles, setArticles] = useState([])
 
-  function date(v) {
-    return dateFormat(v * 1000, 'yyyy-MM-dd')
-  }
-
   async function getData() {
     let [ok, res] = await http(config.apiUrl + 'v1/article/select?limit=100000&offset=1')
     if (ok) {
@@ -36,7 +32,7 @@ export default function Home() {
             <ul className="post-list" id="post-list">
               {articles.map((item, index) => {
                 return (
-                  <li className="post-list-item" key={index}>
+                  <li className={(item.isTop ? 'top ' : '') + 'post-list-item'} key={index}>
                     <article id="post-你不需要jQuery" className="">
                       <h3 className="post-title">
                         <Link to={'/article?id=' + item.id}>{item.title}</Link>
@@ -55,12 +51,13 @@ export default function Home() {
                           })}
                         </ul>
                         <div className="post-meta">
-                          <time className="post-time">{date(item.updateTime)}
+                          <time className="post-time">{dateFormat(item.updateTime)}
                           </time>
                         </div>
                       </div>
                     </article>
-                  </li>)
+                  </li>
+                )
               })}
             </ul>
           </div>

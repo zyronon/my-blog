@@ -11,11 +11,6 @@ export default function Article() {
   let [showTop, setShowTop] = useState(false)
   let [treeOutlines, setTreeOutlines] = useState([])
 
-  function date(v, type = 'YYYY-MM-DD') {
-    if (!v) return ''
-    return dayjs.unix(v).format(type)
-  }
-
   async function getData() {
     let [ok, res] = await http(config.apiUrl + '/v1/article/previewDetail' + location.search)
     if (ok) {
@@ -31,7 +26,6 @@ export default function Article() {
   useEffect(() => {
     setTreeOutlines([])
     let hs = document.querySelector('#article').querySelectorAll('h1,h2,h3,h4,h5,h6')
-    console.log(hs)
     let tree = []
     hs.forEach(v => {
       let tag = v.tagName.replace('H', '')
@@ -81,13 +75,13 @@ export default function Article() {
             {article.title}
           </div>
           <div className="date-ctn">
-            <div className="date">{date(article.createTime)}</div>
+            <div className="date">{dateFormat(article.createTime)}</div>
           </div>
         </div>
         {
           moreThan() && (
             <div className="last-modify">
-              <div className="date">** 最后更新于：{date(article.updateTime, 'YYYY-MM-DD HH:MM')}</div>
+              <div className="date">** 最后更新于：{dateFormat(article.updateTime, 'YYYY-MM-DD HH:MM')}</div>
             </div>
           )
         }
@@ -112,7 +106,7 @@ export default function Article() {
           </div>
         }
         {
-          treeOutlines.length &&(
+          treeOutlines.length > 0 && (
             <div id="outline">
               <div className="outline-header">目录</div>
               <div className="list">
