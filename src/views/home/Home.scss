@@ -32,17 +32,16 @@ $border-radius: 5px;
 
   .post-wrapper {
     min-height: calc(100vh - 35rem);
-    margin: 30px auto;
-    //width: 50%;
 
     .post-list {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
 
       .post-list-item {
-        margin-bottom: 30px;
+        margin-bottom: 1.2rem;
         border-radius: 8px;
         background: #fff;
-        padding: 20px;
+        padding: 2rem;
+        padding-bottom: 1rem;
         box-shadow: 0 0 10px 10px #efefef;
         overflow: hidden;
 
@@ -62,18 +61,26 @@ $border-radius: 5px;
         }
 
         .post-title {
-          margin-bottom: 20px;
-          font-size: 3rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 2.2rem;
           font-weight: lighter;
 
+          time {
+            transform: translateY(-1.4rem);
+            font-size: 1.4rem;
+            font-weight: 400;
+          }
+
           a {
+            width: 80%;
             display: inline-block;
             color: #333;
             text-decoration: none;
             text-shadow: #452d2d 0 0 1px, #fffffb 0 0 1px, #fffffb 0 0 2px;
             letter-spacing: 4px;
             font-weight: 300;
-            font-size: 120%;
             //font-family: Comic Sans MS, Helvetica Neue, Microsoft Yahei, -apple-system, sans-serif;
             //transition: all .5s;
 
@@ -85,39 +92,9 @@ $border-radius: 5px;
         }
 
         .post-content {
-          margin: 20px 0;
+          margin: 1rem 0;
         }
 
-        .post-footer {
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-end;
-
-          .article-tag-list {
-            font-size: 1rem;
-
-            .article-tag-list-item {
-              margin-right: 10px;
-              padding: 7px 12px;
-              background: #dddddc;
-              display: inline-block;
-              border-radius: 2px;
-              //transition: all .3s;
-
-              &:hover {
-                transform: scale(1.15);
-              }
-
-              a {
-              }
-            }
-          }
-
-          .post-meta {
-            font-size: 1.4rem;
-            color: #999;
-          }
-        }
       }
     }
   }

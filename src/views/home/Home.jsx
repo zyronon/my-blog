@@ -36,24 +36,10 @@ export default function Home() {
                     <article id="post-你不需要jQuery" className="">
                       <h3 className="post-title">
                         <Link to={'/article?id=' + item.id}>{item.title}</Link>
+                        <time className="post-time">{dateFormat(item.createTime)}</time>
                       </h3>
                       <div className="post-content">
                         {item.summary}
-                      </div>
-                      <div className="post-footer">
-                        <ul className="article-tag-list">
-                          {item.tags.map((tag, tIndex) => {
-                            return (<li className="article-tag-list-item"
-                                        key={tIndex}
-                                        style={{background: 'rgb(236, 209, 137)'}}>
-                              <a className="article-tag-list-link">{tag.name}</a>
-                            </li>)
-                          })}
-                        </ul>
-                        <div className="post-meta">
-                          <time className="post-time">{dateFormat(item.createTime)}
-                          </time>
-                        </div>
                       </div>
                     </article>
                   </li>
